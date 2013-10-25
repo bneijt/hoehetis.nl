@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hoe het is</title>
+    <style>
+    h1 {
+        font-size: 1000%;
+        font-family: arial;
+        font-align: center;
+    }
+    </style>
+  </head>
+  <body>
+  {% for entry in entries %}
+    <h2>{{ entry.title() }}</h2>
+  {% endfor %}
+  </body>
+</html>
