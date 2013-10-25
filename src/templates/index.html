@@ -13,7 +13,7 @@
   </head>
   <body>
   {% for entry in entries %}
-    <h2>{{ entry.title() }}</h2>
+    <h2 tooltip="{{entry.fingerprint()}}">{{ entry.title() }}</h2>
   {% endfor %}
   </body>
 </html>

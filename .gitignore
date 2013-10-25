@@ -1,2 +1,4 @@
 /virtualenv
 /www
+/src/__pycache__/
+/src/feed.pkl

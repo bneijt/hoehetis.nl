@@ -20,14 +20,21 @@ mappings = [
     NumberRegexMatching()
 ]
 
-
+def deHumanize(s):
+    mapping = {"veertig": 40}
+    for (word, value) in mapping.items():
+        if word in s:
+            s = s.replace(word, str(value))
+    return s
 class Entry:
     def __init__(self, entry):
         self.entry = entry
     def title(self):
         return self.entry['title']
     def fingerprint(self):
-        fingerprint = re.sub("\\s+", " ", self.title())
+        fingerprint = re.sub("\\W", " ", self.title())
+        fingerprint = re.sub("\\s+", " ", fingerprint)
+        fingerprint = deHumanize(fingerprint)
         return fingerprint.strip()
 
 
@@ -35,7 +42,7 @@ def mapPhase(entry):
     return [m.map(entry) for m in mappings]
 
 def removeFingerprintsFrom(fingerprints, entries):
-    return list(filter(lambda x: x.fingerprint() not in fingerprints, entries))
+    return list(filter(lambda e: e.fingerprint() in fingerprints, entries))
 
 def performMapping(entries):
     mapped = map(mapPhase, entries)
@@ -45,7 +52,10 @@ def performMapping(entries):
         successes = list(filter(lambda x: x is not None, resultsForMapping))
         if len(successes) > 1:
             print("Combining %i entries" % len(successes))
-            combinedEntry = mappings[i].reduce(successes)
+            succcessEntries = [entries[index] if status != None else None for (index, status) in enumerate(resultsForMapping)]
+            # resultsForMapping
+            combinedEntry = mappings[i].reduce(succcessEntries)
+            print("Combined into: " + combinedEntry.fingerprint())
             newEntries = removeFingerprintsFrom(successes, entries)
             newEntries.append(combinedEntry)
             return newEntries
