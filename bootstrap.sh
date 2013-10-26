@@ -6,6 +6,6 @@ fi
 . virtualenv/bin/activate
 pip install feedparser
 pip install Jinja2
-
+pip install unidecode
 echo '. virtualenv/bin/activate'
 

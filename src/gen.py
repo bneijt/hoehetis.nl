@@ -37,13 +37,18 @@ def main():
     entries = [Entry(entry) for entry in feed['entries']]
 
     newEntries = []
-    while id(entries) != id(newEntries):
+    while True:
         print("Mapping %i entries" % len(entries))
         newEntries = performMapping(entries)
+        if id(entries) == id(newEntries):
+            break
+        entries = newEntries
+    table = tableFromEntries(entries)
 
     # Collapse entries into dict-dict-dict-href
-    render({"entries": entries}, 'templates/index.html', '../www/index.html')
+    render({"entriesInTable": table, "entries": entries}, 'templates/index.html', '../www/index.html')
 
+# Use http://mbostock.github.io/d3/talk/20111018/tree.html
 if __name__ == "__main__":
     main()
 
