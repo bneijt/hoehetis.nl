@@ -14,6 +14,22 @@ os.chdir(dname)
 
 nuNlAlgemeen = "http://www.nu.nl/feeds/rss/algemeen.rss"
 
+class Db:
+    def open(self):
+        if os.path.exists('db.pkl'):
+            with open("db.pkl", "rb") as f:
+                self.contents = pickle.load(f)
+        else:
+                self.contents = {}
+    def close(self):
+        with open("db.pkl", "wb") as f:
+            pickle.dump(self.contents, f, pickle.HIGHEST_PROTOCOL)
+
+    def addOrUpdate(self, ident, value):
+        self.contents[ident] = value
+
+    def find(self):
+        return self.contents.values()
 
 def render(context, template, output):
     with codecs.open(template, 'rb', 'utf-8') as templateHandle:
@@ -32,21 +48,25 @@ def loadFeed():
             feed = pickle.load(f)
             return feed
 
-def main():
-    feed = loadFeed()
-    entries = [Entry(entry) for entry in feed['entries']]
 
-    newEntries = []
-    while True:
-        print("Mapping %i entries" % len(entries))
-        newEntries = performMapping(entries)
-        if id(entries) == id(newEntries):
-            break
-        entries = newEntries
-    table = tableFromEntries(entries)
+def main():
+    db = Db()
+    db.open()
+    feed = loadFeed()
+    entries = feed['entries']
+    for entry in entries:
+        db.addOrUpdate(entry['id'], entry)
+
+
+    mappedEntries = performMapping(db.find())
+    print("Mapped to %i entries" % len(mappedEntries))
+    print (mappedEntries.keys())
+    # table = tableFromEntries(entries)
 
     # Collapse entries into dict-dict-dict-href
-    render({"entriesInTable": table, "entries": entries}, 'templates/index.html', '../www/index.html')
+
+    render({"idents": mappedEntries.keys(), 'mappedEntries': mappedEntries}, 'templates/index.html', '../www/index.html')
+    db.close()
 
 # Use http://mbostock.github.io/d3/talk/20111018/tree.html
 if __name__ == "__main__":

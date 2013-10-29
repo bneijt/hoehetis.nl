@@ -1,7 +1,10 @@
 import os
-import pickle
 import re
 from unidecode import unidecode
+
+
+class Mapping:
+    pass
 
 class NumberRegexMatching:
     def match(self, entry):
@@ -11,7 +14,10 @@ class NumberRegexMatching:
         """Return the simplified form, or None"""
         match = self.match(entry)
         if match != None:
-            return match.group(2)
+            m = Mapping()
+            m.ident = match.group(2)
+            m.value = entry
+            return m
         return None
 
     def reduce(self, entries):
@@ -49,8 +55,10 @@ def deHumanize(s):
 class Entry:
     def __init__(self, entry):
         self._entry = entry
+
     def title(self):
         return self._entry['title']
+
     def fingerprint(self):
         fingerprint = re.sub("\\W", " ", self.title())
         fingerprint = re.sub("\\s+", " ", fingerprint)
@@ -58,36 +66,25 @@ class Entry:
         fingerprint = deHumanize(fingerprint)
         return fingerprint.strip()
 
-    def children(self):
-        return self._children
-
-    def Combined(title, entries):
-        e = Entry({"title": title})
-        e._children = entries
-        return e
-
 
 def mapPhase(entry):
-    return [m.map(entry) for m in mappings]
+    return [m.map(Entry(entry)) for m in mappings]
 
 def removeFingerprintsFrom(fingerprints, entries):
     return list(filter(lambda e: e.fingerprint() in fingerprints, entries))
 
+
 def performMapping(entries):
     mapped = map(mapPhase, entries)
-    #Collapse all entries that have the same non-None entries
-    for i in range(len(mappings)):
-        resultsForMapping = [m[i] for m in mapped]
-        successes = list(filter(lambda x: x is not None, resultsForMapping))
-        if len(successes) > 1:
-            print("Combining %i entries" % len(successes))
-            succcessEntries = [entries[index] if status != None else None for (index, status) in enumerate(resultsForMapping)]
-            # resultsForMapping
-            combinedEntry = mappings[i].reduce(succcessEntries)
-            print("Combined into: " + combinedEntry.fingerprint())
-            newEntries = removeFingerprintsFrom(successes, entries)
-            newEntries.append(combinedEntry)
-            return newEntries
-    return entries
+    #Collapse entries into dates, remove all None.
+    perIdent = {}
+    for l in mapped:
+        for entry in l:
+            if entry:
+                if entry.ident not in perIdent:
+                    perIdent[entry.ident] = []
+                perIdent[entry.ident].append(entry)
+    #Reduce last week into a single entry
+    return perIdent
 
 
