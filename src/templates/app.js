@@ -1,10 +1,14 @@
 
+
 function app() {
+    d3.json("graphs.json", function(error, json){
+        renderGraphs(json);
+    });
+}
 
-
+function renderGraphs(graphs) {
     var context = cubism.context()
-        .serverDelay(new Date(2012, 4, 2) - Date.now())
-        .step(50e5)
+        .step(60*60*1000)
         .size(1280)
         .stop();
 
@@ -19,13 +23,17 @@ function app() {
         .attr("class", function(d) { return d + " axis"; })
         .each(function(d) { d3.select(this).call(context.axis().ticks(12).orient(d)); });
 
+    function mkHorizon() {
+        return context.horizon()
+            .height(120)
+            .extent([0, 100]);
+        }
     d3.select("body").selectAll(".horizon")
-        .data(["Doden", "Gevonden", "Verloren", "Vergeten"].map(random))
-        .enter().insert("div", ".bottom")
+        .data(d3.keys(graphs).sort().map(metricForGraph))
+        .enter()
+        .insert("div", ".bottom")
         .attr("class", "horizon")
-        .call(context.horizon()
-        .height(120)
-        .extent([-10, 10]));
+        .call(mkHorizon());
 
 
     d3.select("body").append("div")
@@ -39,23 +47,9 @@ function app() {
     });
 
 
-    function random(name) {
-        var value = 0,
-            values = [],
-            i = 0,
-            last;
+    function metricForGraph(name) {
         return context.metric(function(start, stop, step, callback) {
-                start = +start, stop = +stop;
-                if (isNaN(last)) {
-                    last = start;
-                }
-                while (last < stop) {
-                    last += step;
-                    value = Math.max(-10, Math.min(10, value + .8 * Math.random() - .4 + .2 * Math.cos(i += .2)));
-                    values.push(value);
-                }
-                callback(null, values = values.slice((start - stop) / step));
+                callback(null, graphs[name].slice((start - stop) / step));
             }, name);
         }
-
 }

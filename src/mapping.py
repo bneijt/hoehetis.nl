@@ -1,34 +1,49 @@
 import os
 import re
 from unidecode import unidecode
+import datetime
+import time
 
+class MappedEntry:
+    def __init__(self, entry, ident, count):
+        assert type(count) == type(1)
+        self._count = count
+        self._ident = ident
+        self._entry = entry
+    def ident(self):
+        return self._ident
+    def count(self):
+        return self._count
+    def published(self):
+        #print(type(self._entry["published_parsed"]))
+        return  datetime.datetime.fromtimestamp(time.mktime(self._entry["published_parsed"]))
+    def entry(self):
+        return self._entry
 
-class Mapping:
-    pass
-
-class NumberRegexMatching:
+class NumberRegexMatchingMapping:
     def match(self, entry):
-        return re.search("([0-9]+)\\s+(\\S+)", entry.fingerprint())
+        return re.search("([0-9]+)\\s+(\\S+)", fingerprint(entry))
 
     def map(self, entry):
         """Return the simplified form, or None"""
         match = self.match(entry)
         if match != None:
-            m = Mapping()
-            m.ident = match.group(2)
-            m.value = entry
-            return m
+            return MappedEntry(
+                entry,
+                match.group(2).lower(),
+                int(round(float(match.group(1))))
+            )
         return None
 
-    def reduce(self, entries):
-        """Combine multiple entries into a single entry"""
-        matches = [self.match(entry) for entry in entries]
-        values = [int(round(float(m.group(1)))) for m in matches]
-        return Entry.Combined("%i %s" % (sum(values), matches[0].group(2)), entries)
+class IdMapping:
+    def map(self, entry):
+        """Return the simplified form, or None"""
+        return MappedEntry(entry, "berichten", 1)
 
 
 mappings = [
-    NumberRegexMatching()
+    NumberRegexMatchingMapping(),
+    IdMapping()
 ]
 
 def deHumanize(s):
@@ -49,42 +64,29 @@ def deHumanize(s):
     }
     for (word, value) in mapping.items():
         if word in s:
-            s = s.replace(word, str(value))
+            s = s.replace(" %s " % word, str(value))
     return s
 
-class Entry:
-    def __init__(self, entry):
-        self._entry = entry
-
-    def title(self):
-        return self._entry['title']
-
-    def fingerprint(self):
-        fingerprint = re.sub("\\W", " ", self.title())
-        fingerprint = re.sub("\\s+", " ", fingerprint)
-        fingerprint = unidecode(fingerprint)
-        fingerprint = deHumanize(fingerprint)
-        return fingerprint.strip()
+def fingerprint(entry):
+    fingerprint = re.sub("\\W", " ", " %s " % entry["title"])
+    fingerprint = re.sub("\\s+", " ", fingerprint)
+    fingerprint = unidecode(fingerprint)
+    fingerprint = deHumanize(fingerprint)
+    return fingerprint.strip()
 
 
 def mapPhase(entry):
-    return [m.map(Entry(entry)) for m in mappings]
+    return [m.map(entry) for m in mappings]
 
-def removeFingerprintsFrom(fingerprints, entries):
-    return list(filter(lambda e: e.fingerprint() in fingerprints, entries))
 
 
 def performMapping(entries):
-    mapped = map(mapPhase, entries)
-    #Collapse entries into dates, remove all None.
-    perIdent = {}
-    for l in mapped:
-        for entry in l:
-            if entry:
-                if entry.ident not in perIdent:
-                    perIdent[entry.ident] = []
-                perIdent[entry.ident].append(entry)
-    #Reduce last week into a single entry
-    return perIdent
+    listsOfMapped = map(mapPhase, entries)
+    mapping = []
+    for m in listsOfMapped:
+        mapping.extend(m)
+    while None in mapping:
+        mapping.remove(None)
+    return mapping
 
 
