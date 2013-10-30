@@ -1,5 +1,5 @@
 /virtualenv
 /www
 /src/__pycache__/
-/src/feed.pkl
-/src/db.pkl
+db.pkl
+fingerprints.txt

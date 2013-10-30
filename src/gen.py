@@ -7,7 +7,7 @@ import os
 import pickle
 import re
 import datetime
-from mapping import performMapping,fingerprint
+from mapping import performMapping
 import json
 
 
@@ -15,8 +15,6 @@ nuFeeds = [
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen",
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Economie",
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Internet",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Sport",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Achterklap",
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Opmerkelijk",
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Wetenschap",
     "http://www.nu.nl/deeplink_rss2/index.jsp?r=Gezondheid"
@@ -69,7 +67,13 @@ def main():
     for entry in entries:
         db.addOrUpdate(entry['id'], entry)
     mappedEntries = performMapping(db.find())
+
     print("Mapped to %i entries" % len(mappedEntries))
+    haveBeenMapped = [m.entry()["id"] for m in mappedEntries]
+    print(entries[0])
+    for e in db.find():
+        if haveBeenMapped.count(e["id"]) <= 1:
+            print("Not mapped enough:", e["title"])
 
     #Create buckets and place the entries in buckets
     now = datetime.datetime.now()
@@ -81,7 +85,8 @@ def main():
     print("Oldest used time:", oldestUsedTime)
 
     graphs = {}
-    idents = set([e.ident() for e in mappedEntries])
+    idents = list(set([e.ident() for e in mappedEntries]))
+    idents.sort()
     #Start a graph for each ident
     for i in idents:
         graphs[i] = [0] * len(buckets)
@@ -98,18 +103,27 @@ def main():
                 graphs[entry.ident()][bucketIndex] += entry.count()
                 break
 
+    thisWeekPerIdent = {}
+    for i in idents:
+        thisWeekPerIdent[i] = []
+    thisWeek = now - datetime.timedelta(days=7)
+    for entry in mappedEntries:
+        published = entry.published()
+        if published > thisWeek:
+            thisWeekPerIdent[entry.ident()].append(entry.entry())
+    for i in idents:
+        thisWeekPerIdent[i].sort(key=lambda x: x["title"])
+
+
     for i in idents:
         print(i, graphs[i][-5:])
 
     # Collapse entries into dict-dict-dict-href
     with codecs.open("www/graphs.json", 'wb', 'utf-8') as jsonHandle:
         json.dump(graphs, jsonHandle)
-    with codecs.open("fingerprints.txt", 'wb', 'utf-8') as outputHandle:
-        for e in entries:
-            outputHandle.write(fingerprint(e) + "\n")
 
-    render({"idents": idents, 'mappedEntries': mappedEntries}, 'src/templates/app.js', 'www/app.js')
-    render({}, 'src/templates/index.html', 'www/index.html')
+    render({}, 'src/templates/app.js', 'www/app.js')
+    render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent}, 'src/templates/index.html', 'www/index.html')
     db.close()
 
 # Use http://mbostock.github.io/d3/talk/20111018/tree.html

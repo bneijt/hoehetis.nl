@@ -12,39 +12,31 @@ function renderGraphs(graphs) {
         .size(1280)
         .stop();
 
-    d3.select("#demo")
+    d3.select("#hoehetis")
         .append("div")
         .attr("class", "axis")
         .call(context.axis().orient("top"));
 
-    d3.select("body").selectAll(".axis")
+    d3.select("#hoehetis").selectAll(".axis")
         .data(["top", "bottom"])
         .enter().append("div")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { d3.select(this).call(context.axis().ticks(12).orient(d)); });
+        .each(function(d) { d3.select(this).call(context.axis().orient(d)); });
 
-    function mkHorizon() {
-        return context.horizon()
-            .height(120)
-            .extent([0, 100]);
-        }
-    d3.select("body").selectAll(".horizon")
+    d3.select("#hoehetis").selectAll(".horizon")
         .data(d3.keys(graphs).sort().map(metricForGraph))
         .enter()
         .insert("div", ".bottom")
         .attr("class", "horizon")
-        .call(mkHorizon());
+        .call(context.horizon()
+            .height(120)
+            .extent([0, 100])
+            );
 
 
-    d3.select("body").append("div")
+    d3.select("#hoehetis").append("div")
         .attr("class", "rule")
         .call(context.rule());
-
-
-
-    context.on("focus", function(i) {
-        d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
-    });
 
 
     function metricForGraph(name) {

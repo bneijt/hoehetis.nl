@@ -22,7 +22,7 @@ header {
 
 .axis {
   font: 10px sans-serif;
-  position: fixed;
+  /*position: fixed;*/
   pointer-events: none;
   z-index: 2;
 }
@@ -109,7 +109,17 @@ header {
 <script src="app.js"></script>
 </head>
   <body onload="app()">
-    <div id="demo">
+    <div id="hoehetis">
+    </div>
+    <div>Bronnen:
+      {% for ident in idents %}
+      <p><b>{{ident|escape}}</b></p>
+      <ul>
+      {% for entry in thisWeekPerIdent[ident] %}
+        <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>
+      {% endfor %}
+      </ul>
+      {% endfor %}
     </div>
   </body>
 </html>
