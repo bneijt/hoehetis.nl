@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hoe het is</title>
+<title>Hoe het is...</title>
 <style>
-
 body {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   margin: 30px auto;
@@ -103,23 +102,44 @@ header {
   z-index: 2;
 }
 
+.linkList {
+  float: left;
+}
+
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
 </style>
 <script src="//bneijt.nl/js/libs/d3-3.3.8.min.js"></script>
 <script src="//bneijt.nl/js/libs/cubism-1.4.0.min.js"></script>
 <script src="app.js"></script>
 </head>
-  <body onload="app()">
-    <div id="hoehetis">
-    </div>
-    <div>Bronnen:
-      {% for ident in idents %}
-      <p><b>{{ident|escape}}</b></p>
-      <ul>
-      {% for entry in thisWeekPerIdent[ident] %}
-        <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>
-      {% endfor %}
-      </ul>
-      {% endfor %}
-    </div>
-  </body>
+<body onload="app()">
+    <header>
+        <h1>Hoe het is... volgens nummertjes</h1>
+    </header>
+    <section>
+        <div id="hoehetis"></div>
+    </section>
+    <section>
+        <div>
+            <h2>De afgelopen 7 dagen van <a href="http://www.nu.nl">Nu.nl</a></h2>
+            {% for ident in idents %}
+            <div class="linkList">
+                <h3>{{ident|escape}}</h3>
+                <p>
+                    <ul>
+                    {% for entry in thisWeekPerIdent[ident] %}
+                    <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
 </html>

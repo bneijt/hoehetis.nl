@@ -1,2 +1,2 @@
 #!/bin/bash
-git archive --format tar --prefix=hoehetis.nl/ HEAD | ssh localhost 'tar -x -C /tmp'
+git archive --format tar HEAD | ssh owl 'tar -x -C /srv/http/site/hoehetis.nl/'

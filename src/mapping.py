@@ -46,8 +46,8 @@ class DeathTollMapping:
 
 
 class IncDecMapping:
-    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt"]
-    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt"]
+    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit"]
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()

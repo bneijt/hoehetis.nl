@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 if [ ! -d "virtualenv" ]; then
     virtualenv -p `which python3` virtualenv
 fi
