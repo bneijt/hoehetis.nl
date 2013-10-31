@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import re
 from unidecode import unidecode
@@ -45,8 +46,8 @@ class DeathTollMapping:
 
 
 class IncDecMapping:
-    incWords = ["neemt toe", "vaker", "winnen terrein"]
-    decWords = ["neemt af", "minder vaak", "verliezen terrein"]
+    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt"]
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
@@ -58,6 +59,32 @@ class IncDecMapping:
                 return MappedEntry(entry, "neemt af", 1)
         return None
 
+class SurviveMapping:
+    words = ["overleeft"]
+
+    def map(self, entry):
+        t = " %s " % entry["title"].lower()
+        for w in self.words:
+            if (" %s " % w) in t:
+                return MappedEntry(entry, "overleeft", 1)
+        if re.search("ontsnapt aan ([a-zA-Z]+)? letsel", t):
+            return MappedEntry(entry, "overleeft", 1)
+        return None
+
+class PriceMapping:
+    incWords = ["wordt duurder"]
+    decWords = ["wordt goedkoper"]
+
+    def map(self, entry):
+        t = " %s " % entry["title"].lower()
+        for iw in self.incWords:
+            if (" %s " % iw) in t:
+                return MappedEntry(entry, "duurder", 1)
+        for dw in self.decWords:
+            if (" %s " % dw) in t:
+                return MappedEntry(entry, "goedkoper", 1)
+        return None
+
 
 class IdMapping:
     def map(self, entry):
@@ -67,6 +94,8 @@ class IdMapping:
 mappings = [
     DeathTollMapping(),
     IncDecMapping(),
+    PriceMapping(),
+    SurviveMapping(),
     IdMapping()
 ]
 

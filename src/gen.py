@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-# -*- coding: utf-8 -*-
 
 import feedparser
 from jinja2 import Template
@@ -58,21 +58,25 @@ def loadEntries():
             print("Failed to download feed from %s" % feedUrl)
     return entries
 
+def entryId(entry):
+    return re.sub("^http://(www\\.)?nu\\.nl/[a-z]+/", "", entry["id"])
+
 
 def main():
     db = Db()
     db.open()
     entries = loadEntries()
+
     print("Loaded %i new entries" % len(entries))
     for entry in entries:
-        db.addOrUpdate(entry['id'], entry)
+        db.addOrUpdate(entryId(entry), entry)
     mappedEntries = performMapping(db.find())
 
     print("Mapped to %i entries" % len(mappedEntries))
-    haveBeenMapped = [m.entry()["id"] for m in mappedEntries]
-    print(entries[0])
+    haveBeenMapped = [entryId(m.entry()) for m in mappedEntries]
+
     for e in db.find():
-        if haveBeenMapped.count(e["id"]) <= 1:
+        if haveBeenMapped.count(entryId(e)) <= 1:
             print("Not mapped enough:", e["title"])
 
     #Create buckets and place the entries in buckets
@@ -95,7 +99,7 @@ def main():
     for entry in mappedEntries:
         published = entry.published()
         if published < oldestUsedTime:
-            db.remove(entry.entry()["id"])
+            db.remove(entryId(entry.entry()))
             continue
         for bucketIndex in range(nPoints):
             timeDiff = abs(published - buckets[bucketIndex]['time'])

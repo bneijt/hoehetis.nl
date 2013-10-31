@@ -2,4 +2,4 @@
 /www
 /src/__pycache__/
 db.pkl
-fingerprints.txt
+*.pyc
