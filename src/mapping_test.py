@@ -28,20 +28,21 @@ class TestRegexMatcher(unittest.TestCase):
         self.assertEqual(im.map(b).ident(), "neemt af")
 
     def test_shouldSeeDeadPeople(self):
-        a = {"title": "Agenten gewond bij zelfmoord man in Helmond"}
-        im = M.DeathTollMapping()
-        self.assertEqual(im.map(a).ident(), "doden")
+        cases = [
+            ({"title": "Agenten gewond bij zelfmoord man in Helmond"}, 1),
+            ({"title": "92 migranten omgekomen in woestijn Niger"}, 92)
+        ]
 
+        im = M.DeathTollMapping()
+        for case in cases:
+            me = im.map(case[0])
+            self.assertEqual(me.ident(), "doden")
+            self.assertEqual(me.count(), case[1])
+
+    def test_shouldSeeSurvival(self):
         b = {"title": "Agenten gewond bij zelfmoord man in Helmond"}
         im = M.SurviveMapping()
-        self.assertEqual(im.map(a).ident(), "overleeft")
-
-
-    def test_shouldSeeDeadPeople1(self):
-        a={"title": "92 migranten omgekomen in woestijn Niger"}
-        im = M.DeathTollMapping()
-        self.assertEqual(im.map(a).ident(), "doden")
-        self.assertEqual(im.map(a).count(), 92)
+        self.assertEqual(im.map(b).ident(), "overleeft")
 
 if __name__ == '__main__':
     unittest.main()
