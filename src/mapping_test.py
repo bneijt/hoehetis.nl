@@ -30,7 +30,8 @@ class TestRegexMatcher(unittest.TestCase):
     def test_shouldSeeDeadPeople(self):
         cases = [
             ({"title": "Agenten gewond bij zelfmoord man in Helmond"}, 1),
-            ({"title": "92 migranten omgekomen in woestijn Niger"}, 92)
+            ({"title": "92 migranten omgekomen in woestijn Niger"}, 92),
+            ({"title": "Handelaar drie jaar cel in om 140 dode dieren"}, 140)
         ]
 
         im = M.DeathTollMapping()

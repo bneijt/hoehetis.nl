@@ -42,6 +42,13 @@ class DeathTollMapping:
                 "doden",
                 int(round(float(match.group(1))))
             )
+        match = re.search("([0-9]+)\\s+dode\\s+[a-zA-Z]+", fingerprint)
+        if match != None:
+            return MappedEntry(
+                entry,
+                "doden",
+                int(round(float(match.group(1))))
+            )
         for dw in self.deadWords:
             if dw in fingerprint:
                 return MappedEntry(entry, "doden", 1)
