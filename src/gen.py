@@ -63,7 +63,7 @@ def entryId(entry):
 
 
 def main():
-    print("Start:", datetime.datetime.now())
+    print("Start (of zoals de Russen zeggen 'начало'):", datetime.datetime.now())
     db = Db()
     db.open()
     entries = loadEntries()
