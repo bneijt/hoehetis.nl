@@ -47,13 +47,21 @@ class DeathTollMapping:
 
 class IncDecMapping:
     incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit"]
+    incRegex = ["meer [a-z]+"]
     decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
+    decRegex = ["minder [a-z]+"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
+        for ir in self.incRegex:
+            if re.search(" %s " % ir, t):
+                return MappedEntry(entry, "neemt toe", 1)
         for iw in self.incWords:
             if (" %s " % iw) in t:
                 return MappedEntry(entry, "neemt toe", 1)
+        for dr in self.decRegex:
+            if re.search(" %s " % dr, t):
+                return MappedEntry(entry, "neemt af", 1)
         for dw in self.decWords:
             if (" %s " % dw) in t:
                 return MappedEntry(entry, "neemt af", 1)

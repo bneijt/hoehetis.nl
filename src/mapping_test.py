@@ -20,6 +20,12 @@ class TestRegexMatcher(unittest.TestCase):
         self.assertNotEqual(M.SurviveMapping().map(a), None)
         self.assertEqual(M.SurviveMapping().map(b), None)
 
+    def test_shouldMatchMoreSomething(self):
+        a = {"title": "Meer zieken door toename voedselinfecties"}
+        b = {"title": "Minder zieken door toename voedselinfecties"}
+        im = M.IncDecMapping()
+        self.assertEqual(im.map(a).ident(), "neemt toe")
+        self.assertEqual(im.map(b).ident(), "neemt af")
 
 if __name__ == '__main__':
     unittest.main()
