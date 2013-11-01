@@ -42,12 +42,14 @@ class TestRegexMatcher(unittest.TestCase):
         cases = [
             ({"title": "Agenten gewond bij zelfmoord man in Helmond"}, 1),
             ({"title": "92 migranten omgekomen in woestijn Niger"}, 92),
-            ({"title": "Handelaar drie jaar cel in om 140 dode dieren"}, 140)
+            ({"title": "Handelaar drie jaar cel in om 140 dode dieren"}, 140),
+            ({"title": "Derde dode door herfststorm"}, 3)
         ]
 
         im = M.DeathTollMapping()
         for case in cases:
             me = im.map(case[0])
+            self.assertFalse(me is None, msg="Could not find dead people in '%s'" % case[0]['title'])
             self.assertEqual(me.ident(), "doden")
             self.assertEqual(me.count(), case[1])
 

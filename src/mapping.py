@@ -24,6 +24,7 @@ class DeathTollMapping:
     deadWords = ["zelfmoord"]
     def simple(self, entry):
         fingerprint = entry["title"]
+        fingerprint = fingerprint[0:1].lower() + fingerprint[1:]
         fingerprint = " %s " % fingerprint
         fingerprint = re.sub("([0-9]+)\.([0-9]+)", "\\1\\2", fingerprint)
         # fingerprint = re.sub("\\W", " ", fingerprint)
@@ -35,7 +36,7 @@ class DeathTollMapping:
     def map(self, entry):
         """Return the simplified form, or None"""
         fingerprint = self.simple(entry)
-        match = re.search("([0-9]+)\\s+([a-z]+\\s)?(doden|overledenen|gestorven|omgekomen)", fingerprint)
+        match = re.search("([0-9]+)\\s+([a-z]+\\s)?(dode|doden|overledenen|gestorven|omgekomen)", fingerprint)
         if match != None:
             return MappedEntry(
                 entry,
@@ -57,7 +58,7 @@ class DeathTollMapping:
 
 class IncMapping:
     ident = "neemt toe"
-    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit"]
+    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit", "gaan hoge vlucht nemen"]
     incRegex = ["meer [a-z]+", "toename [a-z]+", "stijgen met [a-z0-9]+"]
 
     def map(self, entry):
@@ -128,7 +129,7 @@ mappings = [
 ]
 
 def deHumanize(s):
-    mapping = {
+    numbers = {
         "een": 1,
         "één": 1,
         "twee": 2,
@@ -144,9 +145,24 @@ def deHumanize(s):
         "duizend": 1000,
         "duizenden": 5000
     }
+    orders = {
+        "eerste": 1,
+        "tweede": 2,
+        "derde": 3,
+        "vierde": 4,
+        "vijfde": 5,
+        "zesde": 6,
+        "zevende": 7,
+        "achtste": 8,
+        "negende": 9,
+        "tiende": 10
+    }
+    mapping = {}
+    mapping.update(numbers)
+    mapping.update(orders)
     for (word, value) in mapping.items():
         if word in s:
-            s = s.replace(" %s " % word, str(value))
+            s = s.replace(" %s " % word, " %s " % str(value))
     return s
 
 def mapPhase(entry):
