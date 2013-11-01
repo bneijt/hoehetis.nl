@@ -21,6 +21,7 @@ class MappedEntry:
         return self._entry
 
 class DeathTollMapping:
+    deadWords = ["zelfmoord"]
     def simple(self, entry):
         fingerprint = entry["title"]
         fingerprint = " %s " % fingerprint
@@ -36,12 +37,14 @@ class DeathTollMapping:
         fingerprint = self.simple(entry)
         match = re.search("([0-9]+)\\s+(doden|overledenen|gestorven)", fingerprint)
         if match != None:
-            print(fingerprint)
             return MappedEntry(
                 entry,
                 "doden",
                 int(round(float(match.group(1))))
             )
+        for dw in self.deadWords:
+            if dw in fingerprint:
+                return MappedEntry(entry, "doden", 1)
         return None
 
 
@@ -68,7 +71,7 @@ class IncDecMapping:
         return None
 
 class SurviveMapping:
-    words = ["overleeft"]
+    words = ["overleeft", "gewond"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
