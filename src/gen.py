@@ -63,6 +63,7 @@ def entryId(entry):
 
 
 def main():
+    print("Start:", datetime.datetime.now())
     db = Db()
     db.open()
     entries = loadEntries()
@@ -133,6 +134,7 @@ def main():
     render({}, 'src/templates/app.js', 'www/app.js')
     render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent}, 'src/templates/index.html', 'www/index.html')
     db.close()
+    print("End:", datetime.datetime.now())
 
 # Use http://mbostock.github.io/d3/talk/20111018/tree.html
 if __name__ == "__main__":
