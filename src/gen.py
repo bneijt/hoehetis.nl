@@ -66,10 +66,14 @@ def main():
     db = Db()
     db.open()
     entries = loadEntries()
-
+    dropKeys = ["summary", "tags", "summary_detail", "title_detail", "links", 'related']
     print("Loaded %i new entries" % len(entries))
     for entry in entries:
+        for k in dropKeys:
+            if entry.has_key(k):
+                del entry[k]
         db.addOrUpdate(entryId(entry), entry)
+
     mappedEntries = performMapping(db.find())
 
     print("Mapped to %i entries" % len(mappedEntries))
