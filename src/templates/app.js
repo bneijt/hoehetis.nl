@@ -29,7 +29,7 @@ function renderGraphs(graphs) {
         .insert("div", ".bottom")
         .attr("class", "horizon")
         .call(context.horizon()
-            .height(120)
+            .height(80)
             .extent([0, 100])
             );
 
