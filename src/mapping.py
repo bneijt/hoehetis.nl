@@ -55,27 +55,36 @@ class DeathTollMapping:
         return None
 
 
-class IncDecMapping:
+class IncMapping:
+    ident = "neemt toe"
     incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit"]
-    incRegex = ["meer [a-z]+"]
-    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
-    decRegex = ["minder [a-z]+"]
+    incRegex = ["meer [a-z]+", "toename [a-z]+", "stijgen met [a-z0-9]+"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
         for ir in self.incRegex:
             if re.search(" %s " % ir, t):
-                return MappedEntry(entry, "neemt toe", 1)
+                return MappedEntry(entry, self.ident, 1)
         for iw in self.incWords:
             if (" %s " % iw) in t:
-                return MappedEntry(entry, "neemt toe", 1)
+                return MappedEntry(entry, self.ident, 1)
+        return None
+
+class DecMapping:
+    ident = "neemt af"
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
+    decRegex = ["minder [a-z]+"]
+
+    def map(self, entry):
+        t = " %s " % entry["title"].lower()
         for dr in self.decRegex:
             if re.search(" %s " % dr, t):
-                return MappedEntry(entry, "neemt af", 1)
+                return MappedEntry(entry, self.ident, 1)
         for dw in self.decWords:
             if (" %s " % dw) in t:
-                return MappedEntry(entry, "neemt af", 1)
+                return MappedEntry(entry, self.ident, 1)
         return None
+
 
 class SurviveMapping:
     words = ["overleeft", "gewond"]
@@ -111,7 +120,8 @@ class IdMapping:
 
 mappings = [
     DeathTollMapping(),
-    IncDecMapping(),
+    IncMapping(),
+    DecMapping(),
     PriceMapping(),
     SurviveMapping(),
     IdMapping()

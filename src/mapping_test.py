@@ -21,11 +21,22 @@ class TestRegexMatcher(unittest.TestCase):
         self.assertEqual(M.SurviveMapping().map(b), None)
 
     def test_shouldMatchMoreSomething(self):
-        a = {"title": "Meer zieken door toename voedselinfecties"}
-        b = {"title": "Minder zieken door toename voedselinfecties"}
-        im = M.IncDecMapping()
-        self.assertEqual(im.map(a).ident(), "neemt toe")
-        self.assertEqual(im.map(b).ident(), "neemt af")
+        examples = [
+            {"title": "Meer zieken door toename voedselinfecties"},
+            {"title": "Autoverkopen stijgen met ruim 37 procent"},
+            {"title": "Minder zieken door toename voedselinfecties"}
+        ]
+
+        m = M.IncMapping()
+        for example in examples:
+            self.assertEqual(m.map(example).ident(), m.ident)
+
+    def test_shouldMatchLessSomething(self):
+        examples = [{"title": "Minder zieken door toename voedselinfecties"}]
+
+        m = M.DecMapping()
+        for example in examples:
+            self.assertEqual(m.map(example).ident(), m.ident)
 
     def test_shouldSeeDeadPeople(self):
         cases = [
