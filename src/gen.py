@@ -132,7 +132,7 @@ def main():
         json.dump(graphs, jsonHandle, separators=(',',':'))
 
     render({}, 'src/templates/app.js', 'www/app.js')
-    render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent, 'modified': now.strftime("%Y-%m-%d")}, 'src/templates/index.html', 'www/index.html')
+    render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent, 'modified': now.strftime("%Y-%m-%dT%H:%M%z")}, 'src/templates/index.html', 'www/index.html')
     db.close()
     print("End:", datetime.datetime.now())
 
