@@ -129,10 +129,10 @@ def main():
 
     # Collapse entries into dict-dict-dict-href
     with codecs.open("www/graphs.json", 'wb', 'utf-8') as jsonHandle:
-        json.dump(graphs, jsonHandle)
+        json.dump(graphs, jsonHandle, separators=(',',':'))
 
     render({}, 'src/templates/app.js', 'www/app.js')
-    render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent}, 'src/templates/index.html', 'www/index.html')
+    render({"idents": idents, 'thisWeekPerIdent': thisWeekPerIdent, 'modified': now.strftime("%Y-%m-%d")}, 'src/templates/index.html', 'www/index.html')
     db.close()
     print("End:", datetime.datetime.now())
 

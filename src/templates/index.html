@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" />
+<meta name="DC.modified" content="{{modified}}" />
 <title>Hoe het is...</title>
 <style>
 body {
@@ -131,11 +132,9 @@ li {
             <div class="linkList">
                 <h3>{{ident|escape}}</h3>
                 <p>
-                    <ul>
-                    {% for entry in thisWeekPerIdent[ident] %}
-                    <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>
-                    {% endfor %}
-                    </ul>
+                <ul>{% for entry in thisWeekPerIdent[ident] %}
+                    <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>{% endfor %}
+                </ul>
                 </p>
             </div>
             {% endfor %}
