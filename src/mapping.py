@@ -35,7 +35,7 @@ class DeathTollMapping:
     def map(self, entry):
         """Return the simplified form, or None"""
         fingerprint = self.simple(entry)
-        match = re.search("([0-9]+)\\s+(doden|overledenen|gestorven)", fingerprint)
+        match = re.search("([0-9]+)\\s+([a-z]+\\s)?(doden|overledenen|gestorven|omgekomen)", fingerprint)
         if match != None:
             return MappedEntry(
                 entry,

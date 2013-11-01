@@ -36,5 +36,12 @@ class TestRegexMatcher(unittest.TestCase):
         im = M.SurviveMapping()
         self.assertEqual(im.map(a).ident(), "overleeft")
 
+
+    def test_shouldSeeDeadPeople1(self):
+        a={"title": "92 migranten omgekomen in woestijn Niger"}
+        im = M.DeathTollMapping()
+        self.assertEqual(im.map(a).ident(), "doden")
+        self.assertEqual(im.map(a).count(), 92)
+
 if __name__ == '__main__':
     unittest.main()
