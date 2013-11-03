@@ -56,6 +56,8 @@ class TestRegexMatcher(unittest.TestCase):
             ({"title": "92 migranten omgekomen in woestijn Niger"}, 92),
             ({"title": "Handelaar drie jaar cel in om 140 dode dieren"}, 140),
             ({"title": "Derde dode door herfststorm"}, 3),
+            ({"title": "'Fransen in koelen bloede omgebracht in Mali'"}, 1),
+            ({"title": "Dode door ongeluk op spoorwegovergang"}, 1),
             ({"title": "'Fransen in koelen bloede omgebracht in Mali'"}, 1)
         ]
 
@@ -68,6 +70,7 @@ class TestRegexMatcher(unittest.TestCase):
 
     def test_shouldSeeSurvival(self):
         b = {"title": "Agenten gewond bij zelfmoord man in Helmond"}
+        # 36 gewonden bij busongeluk Muiden
         im = M.SurviveMapping()
         self.assertEqual(im.map(b).ident(), "overleeft")
 
