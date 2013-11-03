@@ -88,15 +88,25 @@ class DecMapping:
 
 
 class SurviveMapping:
+    ident = "overleeft"
     words = ["overleeft", "gewond"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
+
+        match = re.search("([0-9]+)\\s+(gewonde|gewonden)", t)
+        if match != None:
+            return MappedEntry(
+                entry,
+                self.ident,
+                int(round(float(match.group(1))))
+            )
+
         for w in self.words:
             if (" %s " % w) in t:
-                return MappedEntry(entry, "overleeft", 1)
+                return MappedEntry(entry, self.ident, 1)
         if re.search("ontsnapt aan ([a-zA-Z]+)? letsel", t):
-            return MappedEntry(entry, "overleeft", 1)
+            return MappedEntry(entry, self.ident, 1)
         return None
 
 class PriceMapping:

@@ -69,10 +69,16 @@ class TestRegexMatcher(unittest.TestCase):
             self.assertEqual(me.count(), case[1])
 
     def test_shouldSeeSurvival(self):
-        b = {"title": "Agenten gewond bij zelfmoord man in Helmond"}
-        # 36 gewonden bij busongeluk Muiden
-        im = M.SurviveMapping()
-        self.assertEqual(im.map(b).ident(), "overleeft")
+        examples = [
+            ({"title": "Agenten gewond bij zelfmoord man in Helmond"}, 1),
+            ({"title": "36 gewonden bij busongeluk Muiden"}, 36),
+        ]
+
+        m = M.SurviveMapping()
+        for example in examples:
+            i = m.map(example[0])
+            self.assertEqual(i.ident(), "overleeft")
+            self.assertEqual(i.count(), example[1])
 
 if __name__ == '__main__':
     unittest.main()
