@@ -100,11 +100,12 @@ class SurviveMapping:
         return None
 
 class PriceMapping:
-    incWords = ["wordt duurder"]
-    decWords = ["wordt goedkoper"]
+    incWords = ["duurder"]
+    decWords = ["goedkoper"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
+        t = t.replace("'", " ' ")
         for iw in self.incWords:
             if (" %s " % iw) in t:
                 return MappedEntry(entry, "duurder", 1)

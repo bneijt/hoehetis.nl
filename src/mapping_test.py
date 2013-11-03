@@ -31,6 +31,15 @@ class TestRegexMatcher(unittest.TestCase):
         for example in examples:
             self.assertEqual(m.map(example).ident(), m.ident)
 
+    def test_shouldMatchMoreExpensive(self):
+        examples = [
+            ({"title": "'Beneluxtrein wordt stuk duurder'"}, "duurder")
+        ]
+
+        m = M.PriceMapping()
+        for example in examples:
+            self.assertEqual(m.map(example[0]).ident(), example[1])
+
     def test_shouldMatchLessSomething(self):
         examples = [
             {"title": "Minder zieken door toename voedselinfecties"},
