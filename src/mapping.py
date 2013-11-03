@@ -74,7 +74,7 @@ class IncMapping:
 class DecMapping:
     ident = "neemt af"
     decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
-    decRegex = ["minder [a-z]+"]
+    decRegex = ["minder [a-z]+", "[a-z]+vermindering"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()

@@ -32,7 +32,10 @@ class TestRegexMatcher(unittest.TestCase):
             self.assertEqual(m.map(example).ident(), m.ident)
 
     def test_shouldMatchLessSomething(self):
-        examples = [{"title": "Minder zieken door toename voedselinfecties"}]
+        examples = [
+            {"title": "Minder zieken door toename voedselinfecties"},
+            {"title": "'Aangever' Robert M. wil strafvermindering"}
+        ]
 
         m = M.DecMapping()
         for example in examples:
