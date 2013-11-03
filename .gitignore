@@ -1,6 +1,6 @@
 /virtualenv
 /www
 /src/__pycache__/
-db.pkl
+/db.pkl
 *.pyc
 /run.log
