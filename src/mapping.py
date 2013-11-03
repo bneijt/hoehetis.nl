@@ -21,7 +21,7 @@ class MappedEntry:
         return self._entry
 
 class DeathTollMapping:
-    deadWords = ["zelfmoord"]
+    deadWords = ["zelfmoord", "omgekomen", "omgebracht"]
     def simple(self, entry):
         fingerprint = entry["title"]
         fingerprint = fingerprint[0:1].lower() + fingerprint[1:]

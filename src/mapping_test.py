@@ -55,7 +55,8 @@ class TestRegexMatcher(unittest.TestCase):
             ({"title": "Agenten gewond bij zelfmoord man in Helmond"}, 1),
             ({"title": "92 migranten omgekomen in woestijn Niger"}, 92),
             ({"title": "Handelaar drie jaar cel in om 140 dode dieren"}, 140),
-            ({"title": "Derde dode door herfststorm"}, 3)
+            ({"title": "Derde dode door herfststorm"}, 3),
+            ({"title": "'Fransen in koelen bloede omgebracht in Mali'"}, 1)
         ]
 
         im = M.DeathTollMapping()
