@@ -43,7 +43,8 @@ class TestRegexMatcher(unittest.TestCase):
     def test_shouldMatchLessSomething(self):
         examples = [
             {"title": "Minder zieken door toename voedselinfecties"},
-            {"title": "'Aangever' Robert M. wil strafvermindering"}
+            {"title": "'Aangever' Robert M. wil strafvermindering"},
+            {"title": "UPC schrapt 75 banen in Nederland"},
         ]
 
         m = M.DecMapping()

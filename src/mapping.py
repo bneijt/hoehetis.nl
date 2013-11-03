@@ -58,7 +58,7 @@ class DeathTollMapping:
 
 class IncMapping:
     ident = "neemt toe"
-    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "verbeteren kwaliteit", "gaan hoge vlucht nemen"]
+    incWords = ["neemt toe", "vaker", "winnen terrein", "stijgt", "stijgen", "verbeteren kwaliteit", "gaan hoge vlucht nemen"]
     incRegex = ["meer [a-z]+", "toename [a-z]+", "stijgen met [a-z0-9]+"]
 
     def map(self, entry):
@@ -73,8 +73,8 @@ class IncMapping:
 
 class DecMapping:
     ident = "neemt af"
-    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "verslechten kwaliteit"]
-    decRegex = ["minder [a-z]+", "[a-z]+vermindering"]
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "dalen", "verslechten kwaliteit"]
+    decRegex = ["minder [a-z]+", "[a-z]+vermindering", "schrapt [a-z0-9]+ banen"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
