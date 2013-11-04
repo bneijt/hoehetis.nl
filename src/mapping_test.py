@@ -31,36 +31,33 @@ class TestRegexMatcher(unittest.TestCase):
             "'Bedrijven betalen rekeningen sneller'",
         ]
 
-        m = M.IncMapping()
-        for exampleTitle in examples:
-            example = {"title": exampleTitle}
-            me = m.map(example)
-            self.assertFalse(me is None, msg="Could not find more in '%s'" % example['title'])
-            self.assertEqual(me.ident(), m.ident)
+        self.assertMatchingTitles(M.IncMapping(), examples)
 
     def test_shouldMatchMoreExpensive(self):
         examples = [
-            ({"title": "'Beneluxtrein wordt stuk duurder'"}, "duurder")
+            "'Beneluxtrein wordt stuk duurder'",
         ]
-
-        m = M.PriceMapping()
-        for example in examples:
-            self.assertEqual(m.map(example[0]).ident(), example[1])
+        self.assertMatchingTitles(M.IncPriceMapping(), examples)
 
     def test_shouldMatchLessSomething(self):
         examples = [
-            {"title": "Minder zieken door toename voedselinfecties"},
-            {"title": "'Aangever' Robert M. wil strafvermindering"},
-            {"title": "UPC schrapt 75 banen in Nederland"},
-            {"title": "'Rabobank niet langer betrouwbaarste bank'"},
+            "Minder zieken door toename voedselinfecties",
+            "'Aangever' Robert M. wil strafvermindering",
+            "UPC schrapt 75 banen in Nederland",
+            "'Rabobank niet langer betrouwbaarste bank'",
+            "Amerikaans tekort op laagste peil sinds 2008"
         ]
 
         m = M.DecMapping()
-        for example in examples:
-            me = m.map(example)
-            self.assertFalse(me is None, msg="Could not find less something in '%s'" % example['title'])
-            self.assertEqual(me.ident(), m.ident)
-            self.assertEqual(me.ident(), m.ident)
+        self.assertMatchingTitles(m, examples)
+
+    def assertMatchingTitles(self, mapper, exampleTitles):
+
+        for exampleTitle in exampleTitles:
+            example = {"title": exampleTitle}
+            mappedExample = mapper.map(example)
+            self.assertFalse(mappedExample is None, msg="Map '%s' for %s" % (exampleTitle, mapper.ident))
+            self.assertEqual(mappedExample.ident(), mapper.ident)
 
     def test_shouldSeeDeadPeople(self):
         cases = [

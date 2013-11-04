@@ -83,7 +83,7 @@ class IncMapping:
 
 class DecMapping:
     ident = "neemt af"
-    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "dalen", "verslechten kwaliteit", "niet langer"]
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "dalen", "verslechten kwaliteit", "niet langer", "laagste peil sinds"]
     decRegex = ["minder [a-z]+", "[a-z]+vermindering", "schrapt [a-z0-9]+ banen"]
 
     def map(self, entry):
@@ -119,21 +119,29 @@ class SurviveMapping:
             return MappedEntry(entry, self.ident, 1)
         return None
 
-class PriceMapping:
+class IncPriceMapping:
+    ident = "duurder"
     incWords = ["duurder"]
-    decWords = ["goedkoper"]
 
     def map(self, entry):
         t = " %s " % entry["title"].lower()
         t = t.replace("'", " ' ")
         for iw in self.incWords:
             if (" %s " % iw) in t:
-                return MappedEntry(entry, "duurder", 1)
-        for dw in self.decWords:
-            if (" %s " % dw) in t:
-                return MappedEntry(entry, "goedkoper", 1)
+                return MappedEntry(entry, self.ident, 1)
         return None
 
+class DecPriceMapping:
+    ident = "goedkoper"
+    decWords = ["goedkoper"]
+
+    def map(self, entry):
+        t = " %s " % entry["title"].lower()
+        t = t.replace("'", " ' ")
+        for dw in self.decWords:
+            if (" %s " % dw) in t:
+                return MappedEntry(entry, self.ident, 1)
+        return None
 
 class IdMapping:
     def map(self, entry):
@@ -144,7 +152,8 @@ mappings = [
     DeathTollMapping(),
     IncMapping(),
     DecMapping(),
-    PriceMapping(),
+    IncPriceMapping(),
+    DecPriceMapping(),
     SurviveMapping(),
     IdMapping()
 ]
