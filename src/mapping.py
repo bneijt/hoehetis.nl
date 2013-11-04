@@ -66,7 +66,8 @@ class IncMapping:
         "verbeteren kwaliteit",
         "gaan hoge vlucht nemen",
         "vele malen sneller",
-        "trekt aan"]
+        "trekt aan",
+        "nieuwe regels"]
     incRegex = ["meer [a-z]+", "toename [a-z]+", "stijgen met [a-z0-9]+"]
 
     def map(self, entry):

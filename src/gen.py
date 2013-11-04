@@ -123,6 +123,13 @@ def main():
     for i in idents:
         thisWeekPerIdent[i].sort(key=lambda x: x["title"])
 
+    for index, item in enumerate(thisWeekPerIdent["berichten"]):
+        berichtenTitle = item["title"]
+        for entry in mappedEntries:
+            if entry.entry()["title"] == berichtenTitle and entry.ident() != "berichten":
+                thisWeekPerIdent["berichten"][index] = None
+    while None in thisWeekPerIdent["berichten"]:
+        thisWeekPerIdent["berichten"].remove(None)
 
     for i in idents:
         print(i, graphs[i][-5:])

@@ -27,6 +27,7 @@ class TestRegexMatcher(unittest.TestCase):
             {"title": "Minder zieken door toename voedselinfecties"},
             {"title": "Groei Chinese dienstensector trekt aan"},
             {"title": "'Cyberverzekeringen gaan hoge vlucht nemen'"},
+            {"title": "'Toezichthouders schaars door nieuwe regels'"},
         ]
 
         m = M.IncMapping()
