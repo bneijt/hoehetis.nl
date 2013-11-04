@@ -21,7 +21,7 @@ class MappedEntry:
         return self._entry
 
 class DeathTollMapping:
-    deadWords = ["zelfmoord", "omgekomen", "omgebracht", "dode", "gedood", "overleden"]
+    deadWords = ["zelfmoord", "omgekomen", "omgebracht", "dode", "gedood", "overleden", "stierf", "moord"]
     def simple(self, entry):
         fingerprint = entry["title"]
         fingerprint = fingerprint[0:1].lower() + fingerprint[1:]
@@ -65,9 +65,9 @@ class IncMapping:
         "stijgen",
         "verbeteren kwaliteit",
         "gaan hoge vlucht nemen",
-        "vele malen sneller",
         "trekt aan",
-        "nieuwe regels"]
+        "nieuwe regels",
+        "sneller"]
     incRegex = ["meer [a-z]+", "toename [a-z]+", "stijgen met [a-z0-9]+"]
 
     def map(self, entry):
@@ -83,7 +83,7 @@ class IncMapping:
 
 class DecMapping:
     ident = "neemt af"
-    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "dalen", "verslechten kwaliteit"]
+    decWords = ["neemt af", "minder vaak", "verliezen terrein", "daalt", "dalen", "verslechten kwaliteit", "niet langer"]
     decRegex = ["minder [a-z]+", "[a-z]+vermindering", "schrapt [a-z0-9]+ banen"]
 
     def map(self, entry):

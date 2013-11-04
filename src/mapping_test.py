@@ -22,16 +22,18 @@ class TestRegexMatcher(unittest.TestCase):
 
     def test_shouldMatchMoreSomething(self):
         examples = [
-            {"title": "Meer zieken door toename voedselinfecties"},
-            {"title": "Autoverkopen stijgen met ruim 37 procent"},
-            {"title": "Minder zieken door toename voedselinfecties"},
-            {"title": "Groei Chinese dienstensector trekt aan"},
-            {"title": "'Cyberverzekeringen gaan hoge vlucht nemen'"},
-            {"title": "'Toezichthouders schaars door nieuwe regels'"},
+            "Meer zieken door toename voedselinfecties",
+            "Autoverkopen stijgen met ruim 37 procent",
+            "Minder zieken door toename voedselinfecties",
+            "Groei Chinese dienstensector trekt aan",
+            "'Cyberverzekeringen gaan hoge vlucht nemen'",
+            "'Toezichthouders schaars door nieuwe regels'",
+            "'Bedrijven betalen rekeningen sneller'",
         ]
 
         m = M.IncMapping()
-        for example in examples:
+        for exampleTitle in examples:
+            example = {"title": exampleTitle}
             me = m.map(example)
             self.assertFalse(me is None, msg="Could not find more in '%s'" % example['title'])
             self.assertEqual(me.ident(), m.ident)
@@ -50,11 +52,15 @@ class TestRegexMatcher(unittest.TestCase):
             {"title": "Minder zieken door toename voedselinfecties"},
             {"title": "'Aangever' Robert M. wil strafvermindering"},
             {"title": "UPC schrapt 75 banen in Nederland"},
+            {"title": "'Rabobank niet langer betrouwbaarste bank'"},
         ]
 
         m = M.DecMapping()
         for example in examples:
-            self.assertEqual(m.map(example).ident(), m.ident)
+            me = m.map(example)
+            self.assertFalse(me is None, msg="Could not find less something in '%s'" % example['title'])
+            self.assertEqual(me.ident(), m.ident)
+            self.assertEqual(me.ident(), m.ident)
 
     def test_shouldSeeDeadPeople(self):
         cases = [
@@ -65,7 +71,9 @@ class TestRegexMatcher(unittest.TestCase):
             ({"title": "'Fransen in koelen bloede omgebracht in Mali'"}, 1),
             ({"title": "Dode door ongeluk op spoorwegovergang"}, 1),
             ({"title": "'Fransen in koelen bloede omgebracht in Mali'"}, 1),
-            ({"title": "Regisseur Leen Timp (92) overleden"}, 1)
+            ({"title": "Regisseur Leen Timp (92) overleden"}, 1),
+            ({"title": "'Toetanchamon stierf mogelijk door botsing'"}, 1),
+            ({"title": "OM eist achttien jaar voor moord Schoorl"}, 1),
         ]
 
         im = M.DeathTollMapping()
