@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+    function dataGen(){
+      function row(size, idx) {
+        var r = ["" + (2000 + idx)];
+        for(var x = 0; x < size -1; ++x) {
+          r.push((i * idx) % 20);
+        }
+        return r;
+      }
+      var columns = ["Year"];
+      for(var i = 0; i < 30 -1; ++i){
+        columns.push("Column " + i);
+      }
+      var data = [columns];
+      for(var i = 0; i < 10; ++i) {
+        data.push(row(30, i));
+      }
+      return data;
+    }
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        cols = ['Year'].concat()
+        var a = [
+          ['Year', 'Sales', 'Expenses'],
+          ['2001',  1001,      400],
+          ['2002',  1002,      400],
+          ['2003',  1003,      400],
+          ['2004',  1004,      400],
+          ['2005',  1170,      460]
+        ];
+        for(var i = 0; i < 1500; ++i){
+          a.push(["" + (2000 + i),  1170, 460]);
+        }
+        data = google.visualization.arrayToDataTable(dataGen());
+        // data = google.visualization.arrayToDataTable(arrayFrom(data));
+        var options = {
+          title: 'Company Performance'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
