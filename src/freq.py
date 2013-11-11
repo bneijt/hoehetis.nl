@@ -49,10 +49,11 @@ def render(context, template, output):
 
 def normalize(t):
     t = " %s " % t
-    t = re.sub("\\s'(\\S)",  "' \\1", t)
-    t = re.sub("(\\S)'\\s",  "\\1 '", t)
+    t = re.sub("\\s'(\\S)",  " ' \\1", t)
+    t = re.sub("(\\S)'\\s",  "\\1 ' ", t)
     t = re.sub("\\s\\s", " ", t)
     return t.strip()
+
 
 def normalizeEntry(entry):
     return normalize(entry['title'])
