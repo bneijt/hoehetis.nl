@@ -150,6 +150,7 @@ class GroupedEntry(object):
         super(GroupedEntry, self).__init__()
         self.entry = entry
         self.keywords = []
+        self.keyword = None
 
 def groupAllEntriesForThisMonth(entries, synonyms, keywords):
     #Find chance of every keyword matching a title, ordered by probability
@@ -178,6 +179,48 @@ def orderAllKeywordsForGroupedEntries(groupedEntries):
                 allMatchedKeywords[kw.word] = Guess(kw.word, kw.freq, kw.normalization)
     return sorted(allMatchedKeywords.values(), key=Guess.prob)
 
+
+# def setKeywordBySelectingFrom(groupedEntries, keywords, justDefault):
+#     kwords = [k.word for k in sorted(keywords, key=Guess.prob)]
+#     kwords.reverse() #Most probable first
+#     print ("Most probably", kwords[0])
+#     for ge in groupedEntries:
+#         ge.keyword = justDefault
+#         for kw in ge.keywords:
+#             if kw.word in kwords:
+#                 ge.keyword = kw
+#                 break
+
+def googleChartDataFor(groupedEntries, keywords):
+    kws =  [k.word for k in sorted(keywords, key=Guess.prob)] + ["?"]
+    perDate = {}
+    for ge in groupedEntries:
+        d = publishedDateOf(ge.entry).strftime("%Y-%m-%d")
+        if not d in perDate:
+            perDate[d] = [0]*len(kws)
+        geKws = [k.word for k in ge.keywords]
+        match = False
+        for col, kw in enumerate(kws):
+            if kw in geKws:
+                perDate[d][col] += 1
+                match = True
+        if match is False:
+            perDate[d][col] += 1
+
+
+    table = [["Datum"] + kws]
+    for k in sorted(perDate.keys()):
+        table.append([k] + perDate[k])
+
+    with codecs.open("www/gchart.json", 'wb', 'utf-8') as jsonHandle:
+        json.dump(table, jsonHandle, separators=(',',':'))
+
+def render(context, template, output):
+    with codecs.open(template, 'rb', 'utf-8') as templateHandle:
+        with codecs.open(output, 'wb', 'utf-8') as outputHandle:
+            t = Template(templateHandle.read())
+            outputHandle.write(t.render(**context))
+
 def main():
     print("Start (of zoals de Russen zeggen 'начало'):", datetime.datetime.now())
     db = Db()
@@ -201,11 +244,13 @@ def main():
 
     #Take the 10 most probable keywords from these titles
     topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
+    for t in topTenKeywords:
+        print("top", t)
+    # setKeywordBySelectingFrom(groupedEntries, topTenKeywords, Guess("?", 0, 1))
 
-    print ("Top 10 keywords:")
-    for kw in topTenKeywords:
-        print(kw)
+    googleChartDataFor(groupedEntries, topTenKeywords)
 
+    render({}, 'src/templates/gchart.html', 'www/gchart.html')
 
     # db.close()
     print("End:", datetime.datetime.now())
