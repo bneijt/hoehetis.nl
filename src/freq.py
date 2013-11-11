@@ -167,8 +167,9 @@ def main():
         if key not in exchangePatterns:
             exchangePatterns[key] = []
         for candidate in sublists:
-            if candidate.hash() == key:
-                continue
+            #An exchange pattern is always generated for the story itself
+            #if candidate.hash() == key:
+            #    continue
             if sublist.centerInterchangableWith(candidate):
                 #We have found an interchange pattern
                 exchangePatterns[key].append(candidate)
@@ -219,10 +220,10 @@ def main():
 
     #One bucket per day, add counts to the buckets for eacht entry that matches
     for entry in entries:
-        published = publishedDateOf(entry)
-        if published.date() < oldestUsedTime:
-            # db.remove(entryId(entry.entry()))
-            continue
+        published = publishedDateOf(entry).date()
+        if published < oldestUsedTime:
+        #     # db.remove(entryId(entry.entry()))
+             continue
         title = entry["title"]
         ident = None
         for (idx, pattern) in enumerate(uniqueExchangePatterns):
@@ -237,12 +238,25 @@ def main():
             if bucket['date'] == published:
                 graphs[ident][bucketIndex] += 1
                 break
-    print(repr(graphs.keys()))
-    for k in graphs.keys():
-        print(k, graphs[k])
 
+    EMPTY_GRAPH = [0] * len(buckets)
+    for k in list(graphs.keys()):
+        if graphs[k] == EMPTY_GRAPH:
+            del graphs[k]
+
+    print(repr(graphs))
+    print(len(graphs))
     with codecs.open("www/gchart.json", 'wb', 'utf-8') as jsonHandle:
-        json.dump(graphs, jsonHandle, separators=(',',':'))
+        g = []
+        header = list(graphs.keys())
+        header.sort()
+
+        g.append(["Datum"] + header)
+        for idx, bucket in enumerate(buckets):
+            row = [bucket["date"].strftime("%Y-%m-%d")]
+            row += [graphs[h][idx] for h in header]
+            g.append(row)
+        json.dump(g, jsonHandle, separators=(',',':'))
 
     render({
         "idents": idents,
