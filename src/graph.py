@@ -57,18 +57,24 @@ class Guess(object):
         self.word = word
         self.freq = freq
         self.normalization = normalization
+
     def __str__(self):
         return "Guess: \"%s\" (%i/%i)" % (self.word, self.freq, self.normalization)
+
     def sameWordAs(self, other):
         return self.word == other.word
+
     def add(self, other):
         if other.freq == 0:
             return
         self.freq = self.freq * other.normalization
         self.freq += other.freq * self.normalization
         self.normalization = other.normalization * self.normalization
+        #1/1 + 1/30 = ((1*30) + (1*1)) / (30)
+
     def prob(self):
         return self.freq / self.normalization
+
 
 def determinekeywordsFrom(titles):
     #keywords are not to frequent, but still frequent words.
@@ -166,30 +172,18 @@ def groupAllEntriesForThisMonth(entries, synonyms, keywords):
         groupedEntries.append(ge)
     return groupedEntries
 
-def orderAllKeywordsForGroupedEntries(groupedEntries):
-    """Take the keywords for each of the grouped entries and
-    create a single list of most probable keywords. Combine
-    them on words into"""
-    allMatchedKeywords = {}
+
+def determineEntriesPerKeyword(groupedEntries, keywords):
+    kws =  [k.word for k in sorted(keywords, key=Guess.prob)] + ["?"]
+    perKeyword = {}
+    for kw in kws:
+        perKeyword[kw] = []
     for ge in groupedEntries:
-        for kw in ge.keywords:
-            if kw.word in allMatchedKeywords:
-                allMatchedKeywords[kw.word].add(kw)
-            else:
-                allMatchedKeywords[kw.word] = Guess(kw.word, kw.freq, kw.normalization)
-    return sorted(allMatchedKeywords.values(), key=Guess.prob)
-
-
-# def setKeywordBySelectingFrom(groupedEntries, keywords, justDefault):
-#     kwords = [k.word for k in sorted(keywords, key=Guess.prob)]
-#     kwords.reverse() #Most probable first
-#     print ("Most probably", kwords[0])
-#     for ge in groupedEntries:
-#         ge.keyword = justDefault
-#         for kw in ge.keywords:
-#             if kw.word in kwords:
-#                 ge.keyword = kw
-#                 break
+        geKws = [k.word for k in ge.keywords]
+        for kw in kws:
+            if kw in geKws:
+                perKeyword[kw].append(ge)
+    return perKeyword
 
 def googleChartDataFor(groupedEntries, keywords):
     kws =  [k.word for k in sorted(keywords, key=Guess.prob)] + ["?"]
@@ -204,6 +198,7 @@ def googleChartDataFor(groupedEntries, keywords):
             if kw in geKws:
                 perDate[d][col] += 1
                 match = True
+                break #Match only a single
         if match is False:
             perDate[d][col] += 1
 
@@ -243,14 +238,19 @@ def main():
         print(t)
 
     #Take the 10 most probable keywords from these titles
-    topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
+    #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
+    topTenKeywords = sorted(keywords, key=Guess.prob)[:10]
+    #TODO determine top ten based on usage in grouped entries instead of probability?
+    # possibly favour used keywords by adding the probability of the group entries
+    # to the keyword entries??
     for t in topTenKeywords:
         print("top", t)
     # setKeywordBySelectingFrom(groupedEntries, topTenKeywords, Guess("?", 0, 1))
 
+    entriesPerKeyword = determineEntriesPerKeyword(groupedEntries, topTenKeywords)
     googleChartDataFor(groupedEntries, topTenKeywords)
 
-    render({}, 'src/templates/gchart.html', 'www/gchart.html')
+    render({"perKeyword": entriesPerKeyword}, 'src/templates/gchart.html', 'www/gchart.html')
 
     # db.close()
     print("End:", datetime.datetime.now())

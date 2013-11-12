@@ -25,5 +25,15 @@
   </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+             {% for kw in perKeyword %}
+            <div class="linkList">
+                <h3>{{kw|escape}}</h3>
+                <p>
+                <ul>{% for ge in perKeyword[kw] %}
+                    <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>{% endfor %}
+                </ul>
+                </p>
+            </div>
+            {% endfor %}
   </body>
 </html>
