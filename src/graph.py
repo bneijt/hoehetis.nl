@@ -80,22 +80,24 @@ def determinekeywordsFrom(titles):
     #keywords are not to frequent, but still frequent words.
     #Each keyword is given a probability of it being a real keyword
     keywords = {}
+    wordCount = 0
     for title in titles:
         words = title.split(" ")
+        wordCount += len(words)
         for word in words:
             if word in keywords:
                 keywords[word] += 1
             else:
                 keywords[word] = 1
     #Normalize keywords frequency count to create probability?
-    return [Guess(word, count, len(keywords)) for word, count in keywords.items()]
+    return [Guess(word, count, wordCount) for word, count in keywords.items()]
 
 def selectWordWithOffsetFromIn(word, offset, titles):
     def sel(title):
         words = title.split(" ")
         if word not in words:
             return None
-        idx = words.index(word) - offset
+        idx = words.index(word) + offset
         if idx >= 0 and idx < len(words):
             return words[idx]
         return None
@@ -115,15 +117,20 @@ def determineSynoymsForWord(titles, titleWords, wordIndex):
     #Determine which other words are possible based on surrounding words
     #Take the word after the word given in other titles
     alternatives = []
+    alternativesConsidered = 0
     if wordIndex > 0:
         #Not the first word
         wordBefore = titleWords[wordIndex -1]
         alternatives.extend(selectWordWithOffsetFromIn(wordBefore, 1, titles))
+        alternativesConsidered += len(titles)
     if wordIndex < len(titleWords) -1:
         #Not the last word
         wordAfter = titleWords[wordIndex +1]
         alternatives.extend(selectWordWithOffsetFromIn(wordAfter, -1, titles))
-    return listToGuess(alternatives)
+        alternativesConsidered += len(titles)
+    #The replacement chance is based on the matching alternatives
+    # relative to all possible alternatives
+    return [Guess(entry, alternatives.count(entry), alternativesConsidered) for entry in set(alternatives)]
 
 
 def determineSynonymsFor(titles):
@@ -216,6 +223,10 @@ def render(context, template, output):
             t = Template(templateHandle.read())
             outputHandle.write(t.render(**context))
 
+def getNormalizedTitles(entries):
+    return list(map(normalizeEntry, entries))
+
+
 def main():
     print("Start (of zoals de Russen zeggen 'начало'):", datetime.datetime.now())
     db = Db()
@@ -223,7 +234,7 @@ def main():
 
     entries = list(db.find())
     print("Loaded %i entries" % len(entries))
-    titles = list(map(normalizeEntry, entries))
+    titles = getNormalizedTitles(entries)
 
     keywords = determinekeywordsFrom(titles)
 
