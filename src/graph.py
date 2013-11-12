@@ -112,7 +112,6 @@ def listToGuess(l):
     return [Guess(entry, l.count(entry), len(l)) for entry in set(l)]
 
 
-
 def determineSynoymsForWord(titles, titleWords, wordIndex):
     #Determine which other words are possible based on surrounding words
     #Take the word after the word given in other titles
@@ -226,6 +225,12 @@ def render(context, template, output):
 def getNormalizedTitles(entries):
     return list(map(normalizeEntry, entries))
 
+def collateKeywordsFromGroupedEntries(groupedEntries):
+    usedKeywords = []
+    for ge in groupedEntries:
+        usedKeywords.extend([kw.word for kw in ge.keywords])
+    return listToGuess(usedKeywords)
+
 
 def main():
     print("Start (of zoals de Russen zeggen 'начало'):", datetime.datetime.now())
@@ -242,15 +247,11 @@ def main():
 
 
     groupedEntries = groupAllEntriesForThisMonth(entries, synonyms, keywords)
-
-    ge = groupedEntries[0]
-    print("Title:", ge.entry['title'])
-    for t in ge.keywords:
-        print(t)
-
+    usedKeywords = collateKeywordsFromGroupedEntries(groupedEntries)
     #Take the 10 most probable keywords from these titles
     #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
-    topTenKeywords = sorted(keywords, key=Guess.prob)[:10]
+
+    topTenKeywords = sorted(usedKeywords, key=Guess.prob)[:10]
     #TODO determine top ten based on usage in grouped entries instead of probability?
     # possibly favour used keywords by adding the probability of the group entries
     # to the keyword entries??

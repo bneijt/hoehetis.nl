@@ -1,11 +1,12 @@
-<html>
+<html lang="nl-NL">
   <head>
+    <meta charset="utf-8" />
+    <meta name="DC.modified" content="{{modified}}" />
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script type="text/javascript">
-
-
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
 
@@ -24,18 +25,34 @@
         jQuery.getJSON("gchart.json", withChartData);
       }
     </script>
-  </head>
-  <body>
-    <div id="chart" style="width: 900px; height: 500px;"></div>
-             {% for kw in perKeyword %}
-            <div class="linkList">
-                <h3>{{kw|escape}}</h3>
-                <p>
-                <ul>{% for ge in perKeyword[kw] %}
-                    <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>{% endfor %}
-                </ul>
-                </p>
-            </div>
-            {% endfor %}
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+header {
+  padding-left: 2em;
+}
+.linkList {
+  border-radius: 5px;
+}
+.linkList :hover {
+  background-color: LemonChiffon;
+}
+a {
+    text-decoration: none;
+}
+</style>
+</head>
+<body>
+  <div id="chart" style="width: 1000px; height: 600;"></div>
+  {% for kw in perKeyword %}
+    <span class="linkList">
+      <b>{{kw|escape}}</b>
+      {% for ge in perKeyword[kw] %}
+      <a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a>
+      {% endfor %}
+    </span>
+  {% endfor %}
   </body>
 </html>
