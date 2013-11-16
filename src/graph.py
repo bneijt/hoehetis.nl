@@ -190,31 +190,28 @@ def determineEntriesPerKeyword(groupedEntries, keywords):
         perKeyword[kw] = []
     for ge in groupedEntries:
         geKws = [k.word for k in ge.keywords]
+        match = False
         for kw in kws:
             if kw in geKws:
                 perKeyword[kw].append(ge)
+                match = True
+                break
+        if match == False:
+            perKeyword["?"].append(ge)
     for kw in list(perKeyword.keys()):
         if len(perKeyword[kw]) == 0:
             del perKeyword[kw]
     return perKeyword
 
-def googleChartDataFor(groupedEntries, keywords):
-    kws =  [k.word for k in sorted(keywords, key=Guess.prob)] + ["?"]
+def googleChartDataFor(entriesPerKeyword):
+    kws =  sorted(entriesPerKeyword.keys())
     perDate = {}
-    for ge in groupedEntries:
-        d = publishedDateOf(ge.entry).strftime("%Y-%m-%d")
-        if not d in perDate:
-            perDate[d] = [0]*len(kws)
-        geKws = [k.word for k in ge.keywords]
-        match = False
-        for col, kw in enumerate(kws):
-            if kw in geKws:
-                perDate[d][col] += 1
-                match = True
-                break #Match only a single keyword category
-        if match is False:
+    for col, kw in enumerate(kws):
+        for ge in entriesPerKeyword[kw]:
+            d = publishedDateOf(ge.entry).strftime("%Y-%m-%d")
+            if not d in perDate:
+                perDate[d] = [0]*len(kws)
             perDate[d][col] += 1
-
 
     table = [["Datum"] + kws]
     for k in sorted(perDate.keys()):
@@ -260,7 +257,7 @@ def inNotBlacklist(element):
         "van",
         "in",
         "door",
-        "over"
+        "over",
         ]
     return element.word not in blacklist
 
@@ -284,9 +281,6 @@ def main():
 
     for ge in groupedEntries:
         stripLessThenBestKeywords(ge)
-    print("Best only")
-    for i in sorted(groupedEntries[0].keywords, key=Guess.prob):
-        print("kw", i)
 
     #usedKeywords = collateKeywordsFromGroupedEntries(groupedEntries)
 
@@ -294,22 +288,25 @@ def main():
     #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
     keywords = filter(inNotBlacklist, keywords)
 
-    topTenKeywords = sorted(keywords, key=Guess.prob)[-15:]
+    topTenKeywords = sorted(keywords, key=Guess.prob)[-14:]
     #Find the drop in probability in the keywords to find the best keywords?
     #TODO determine top ten based on usage in grouped entries instead of probability?
     # possibly favour used keywords by adding the probability of the group entries
     # to the keyword entries??
-    for t in topTenKeywords:
-        print("top", t)
+
     # setKeywordBySelectingFrom(groupedEntries, topTenKeywords, Guess("?", 0, 1))
     #Create a common word penalty: subtract the general frequency of a keyword
     # from the matched keyword (subtract general probability that it contained the word
     # in the first place)
     entriesPerKeyword = determineEntriesPerKeyword(groupedEntries, topTenKeywords)
-    googleChartDataFor(groupedEntries, topTenKeywords)
+    if "?" in entriesPerKeyword:
+        for ge in entriesPerKeyword["?"]:
+            print("Uncatagorized:", ge.entry["title"])
+        del entriesPerKeyword["?"]
+    googleChartDataFor(entriesPerKeyword)
 
     render({"perKeyword": entriesPerKeyword}, 'src/templates/gchart.html', 'www/gchart.html')
-    shutil.copyfile('src/templates/foundation.min.js', 'www/foundation.min.js')
+    # shutil.copyfile('src/templates/foundation.min.css', 'www/foundation.min.css')
     # db.close()
     print("End:", datetime.datetime.now())
 

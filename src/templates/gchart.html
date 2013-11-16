@@ -1,62 +1,75 @@
 <html lang="nl-NL">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="DC.modified" content="{{modified}}" />
 
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<head>
+<meta charset="utf-8" />
+<meta name="DC.modified" content="{{modified}}" />
+<title>Hoe het is: nu.nl in nummertjes</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/js/foundation.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/normalize.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/foundation.min.css" />
 
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        function withChartData(jsonData) {
-          data = google.visualization.arrayToDataTable(jsonData);
-          var options = {
-            title: 'hoehetis.nl',
-            vAxis: {title:'Aantal'},
-            hAxis: {title:'Datum'}
-          };
+  function drawChart() {
+    function withChartData(jsonData) {
+      data = google.visualization.arrayToDataTable(jsonData);
+      var options = {
+        vAxis: {title:'Aantal'},
+        hAxis: {title:'Datum'}
+      };
 
-          var chart = new google.visualization.LineChart(document.getElementById('chart'));
-          chart.draw(data, options);
-        }
-        jQuery.getJSON("gchart.json", withChartData);
-      }
-    </script>
+      var chart = new google.visualization.LineChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    }
+    $.getJSON("gchart.json", withChartData);
+  }
+</script>
 <style>
-body {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
-}
 
-header {
-  padding-left: 2em;
-}
-.linkList {
-  border-radius: 5px;
-}
-.linkList :hover {
-  background-color: LemonChiffon;
-}
-a {
-    text-decoration: none;
-}
 </style>
 </head>
+
+
 <body>
-  <div id="chart" style="width: 1000px; height: 600;"></div>
+  <div class="row">
+    <div class="large-11 columns">
+    <h1>hoe het is <br /><small>Nieuws in nummertjes</small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-11 columns">
+      <div id="chart" style="width: 1000px; height: 600;"></div>
+    </div>
+  </div>
+
+
+<div class="row">
+<div class="large-11 columns">
+
+<div class="section-container auto" data-section>
   {% for kw in perKeyword %}
-    <div class="linkList">
-      <b>{{kw|escape}}</b>
-      <ul>
+  <section>
+    <p class="title" data-section-title><a href="#{{kw|escape}}">{{kw|escape}}</a></p>
+    <div class="content" data-section-content>
+      <p>
+      <ul class="inline-list">
       {% for ge in perKeyword[kw] %}
         <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>
       {% endfor %}
       </ul>
-    </span>
+      </p>
+    </div>
+  </section>
   {% endfor %}
-  <script src="//cdn.jsdelivr.net/foundation/4.3.1/js/foundation.min.js"></script>
-  <script>window.Foundation || document.write('<script src="/foundation.min.js"><\/script>')</script>
-  </body>
+</div>
+
+</div>
+</div>
+
+<script>$(document).foundation()</script>
+</body>
 </html>
