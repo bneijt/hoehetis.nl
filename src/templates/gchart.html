@@ -47,11 +47,13 @@ a {
 <body>
   <div id="chart" style="width: 1000px; height: 600;"></div>
   {% for kw in perKeyword %}
-    <span class="linkList">
+    <div class="linkList">
       <b>{{kw|escape}}</b>
+      <ul>
       {% for ge in perKeyword[kw] %}
-      <a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a>
+        <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>
       {% endfor %}
+      </ul>
     </span>
   {% endfor %}
   </body>
