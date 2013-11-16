@@ -8,6 +8,7 @@ import datetime
 import re
 import time
 import json
+import shutil
 
 class Db:
     def open(self):
@@ -192,6 +193,9 @@ def determineEntriesPerKeyword(groupedEntries, keywords):
         for kw in kws:
             if kw in geKws:
                 perKeyword[kw].append(ge)
+    for kw in list(perKeyword.keys()):
+        if len(perKeyword[kw]) == 0:
+            del perKeyword[kw]
     return perKeyword
 
 def googleChartDataFor(groupedEntries, keywords):
@@ -241,8 +245,13 @@ def stripLessThenBestKeywords(groupedEntry):
 
 def inNotBlacklist(element):
     blacklist = [
-        "af",
         "'",
+
+        "de",
+        "het",
+        "een",
+
+        "af",
         "op",
         "om",
         "te",
@@ -285,7 +294,7 @@ def main():
     #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
     keywords = filter(inNotBlacklist, keywords)
 
-    topTenKeywords = sorted(keywords, key=Guess.prob)[-20:]
+    topTenKeywords = sorted(keywords, key=Guess.prob)[-15:]
     #Find the drop in probability in the keywords to find the best keywords?
     #TODO determine top ten based on usage in grouped entries instead of probability?
     # possibly favour used keywords by adding the probability of the group entries
@@ -300,7 +309,7 @@ def main():
     googleChartDataFor(groupedEntries, topTenKeywords)
 
     render({"perKeyword": entriesPerKeyword}, 'src/templates/gchart.html', 'www/gchart.html')
-
+    shutil.copyfile('src/templates/foundation.min.js', 'www/foundation.min.js')
     # db.close()
     print("End:", datetime.datetime.now())
 
