@@ -1,133 +1,75 @@
-<!DOCTYPE html>
 <html lang="nl-NL">
+
 <head>
 <meta charset="utf-8" />
 <meta name="DC.modified" content="{{modified}}" />
-<title>Hoe het is: nieuws in nummertjes</title>
+<title>Hoe het is: nu.nl in nummertjes</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/js/foundation.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/normalize.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/foundation.min.css" />
+
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    function withChartData(jsonData) {
+      data = google.visualization.arrayToDataTable(jsonData);
+      var options = {
+        vAxis: {title:'Aantal'},
+        hAxis: {title:'Datum'}
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    }
+    $.getJSON("gchart.json", withChartData);
+  }
+</script>
 <style>
-body {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
-}
 
-header {
-  padding-left: 2em;
-}
-
-section {
-  margin: 30px auto;
-  width: 1280px;
-  position: relative;
-}
-.group {
-  margin-bottom: 1em;
-}
-
-.axis {
-  font: 10px sans-serif;
-  /*position: fixed;*/
-  pointer-events: none;
-  z-index: 2;
-}
-
-.axis text {
-  -webkit-transition: fill-opacity 250ms linear;
-}
-
-.axis path {
-  display: none;
-}
-
-.axis line {
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis.top {
-  padding: 0 0 24px 0;
-}
-
-.axis.bottom {
-}
-
-.horizon {
-  border-bottom: solid 1px #000;
-  overflow: hidden;
-  position: relative;
-}
-
-.horizon {
-  border-top: solid 1px #000;
-  border-bottom: solid 1px #000;
-}
-
-.horizon + .horizon {
-  border-top: none;
-}
-
-.horizon canvas {
-  display: block;
-}
-
-.horizon .title,
-.horizon .value {
-  bottom: 0;
-  line-height: 30px;
-  margin: 0 6px;
-  position: absolute;
-  text-shadow: 0 1px 0 rgba(255,255,255,.5);
-  white-space: nowrap;
-  font-weight: bold;
-}
-
-.horizon .title {
-  left: 0;
-}
-
-.horizon .value {
-  right: 0;
-}
-
-.line {
-  background: #000;
-  z-index: 2;
-}
-
-.linkList {
-  float: left;
-}
-
-a {
-    text-decoration: none;
-}
-li {
-    list-style: none;
-}
 </style>
-<script src="//bneijt.nl/js/libs/d3-3.3.8.min.js"></script>
-<script src="//bneijt.nl/js/libs/cubism-1.4.0.min.js"></script>
-<script src="app.js"></script>
 </head>
-<body onload="app()">
-    <header>
-        <h1>Hoe het is: nieuws in nummertjes</h1>
-    </header>
-    <section>
-        <div id="hoehetis"></div>
-    </section>
-    <section>
-        <div>
-            <h2>De afgelopen 7 dagen van <a href="http://www.nu.nl">Nu.nl</a></h2>
-            {% for ident in idents %}
-            <div class="linkList">
-                <h3>{{ident|escape}}</h3>
-                <p>
-                <ul>{% for entry in thisWeekPerIdent[ident] %}
-                    <li><a href="{{entry["link"]}}">{{entry["title"]|escape}}</a></li>{% endfor %}
-                </ul>
-                </p>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+
+
+<body>
+  <div class="row">
+    <div class="large-11 columns">
+    <h1>hoe het is <br /><small>Nieuws in nummertjes</small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-11 columns">
+      <div id="chart" style="width: 1000px; height: 600;"></div>
+    </div>
+  </div>
+
+
+<div class="row">
+<div class="large-11 columns">
+
+<div class="section-container auto" data-section>
+  {% for kw in perKeyword %}
+  <section>
+    <p class="title" data-section-title><a href="#{{kw|urlencode}}">{{kw|escape}}</a></p>
+    <div class="content" data-section-content>
+      <p>
+      <ul class="inline-list">
+      {% for ge in perKeyword[kw] %}
+        <li><a href="{{ge.entry['link']|urlencode}}">{{ge.entry["title"]|escape}}</a></li>
+      {% endfor %}
+      </ul>
+      </p>
+    </div>
+  </section>
+  {% endfor %}
+</div>
+
+</div>
+</div>
+
+<script>$(document).foundation()</script>
 </body>
 </html>

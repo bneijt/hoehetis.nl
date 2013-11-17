@@ -6,6 +6,6 @@ set -e
 cd "`dirname "$0"`"
 . virtualenv/bin/activate
 python src/gen.py 2>&1 | tee run.log
-for f in www/*.html www/*.js www/*.json; do
+for f in www/*.html www/*.json; do
     gzip --to-stdout --best "$f" > "$f".gz || rm "$f".gz
 done
