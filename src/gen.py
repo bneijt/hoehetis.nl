@@ -241,7 +241,8 @@ def inNotBlacklist(element):
     return element.word not in blacklist
 
 def main():
-    print("Start (of zoals de Russen zeggen 'начало'):", datetime.datetime.now())
+    startTime = datetime.datetime.now()
+    print("Start (of zoals de Russen zeggen 'начало'):", startTime)
     db = E.Db()
     db.open()
 
@@ -289,7 +290,9 @@ def main():
     render({"perKeyword": entriesPerKeyword}, 'src/templates/index.html', 'www/index.html')
     # shutil.copyfile('src/templates/foundation.min.css', 'www/foundation.min.css')
     db.close()
-    print("End:", datetime.datetime.now())
+    endTime = datetime.datetime.now()
+    print("End:", endTime)
+    print("Run:", endTime - startTime)
 
 if __name__ == "__main__":
     main()
