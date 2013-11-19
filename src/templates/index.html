@@ -73,7 +73,7 @@
       <p>
       <ul class="inline-list">
       {% for ge in perKeyword[kw] %}
-        <li><a href="{{ge.entry['link']|urlencode}}">{{ge.entry["title"]|escape}}</a></li>
+        <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>
       {% endfor %}
       </ul>
       </p>
