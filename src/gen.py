@@ -162,8 +162,8 @@ def groupAllEntriesForThisMonth(entries, synonyms, keywords):
     return groupedEntries
 
 
-def determineEntriesPerKeyword(groupedEntries, keywords):
-    kws =  [kw.word for kw in keywords] + ["?"]
+def determineEntriesPerKeyword(groupedEntries, sortedKeywords):
+    kws =  [kw.word for kw in sortedKeywords] + ["?"]
     perKeyword = {}
     for kw in kws:
         perKeyword[kw] = []
