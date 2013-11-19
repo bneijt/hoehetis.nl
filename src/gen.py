@@ -163,7 +163,7 @@ def groupAllEntriesForThisMonth(entries, synonyms, keywords):
 
 
 def determineEntriesPerKeyword(groupedEntries, keywords):
-    kws =  [k.word for k in sorted(keywords, key=Guess.prob)] + ["?"]
+    kws =  [kw.word for kw in keywords] + ["?"]
     perKeyword = {}
     for kw in kws:
         perKeyword[kw] = []
@@ -226,17 +226,6 @@ def inNotBlacklist(element):
         "de",
         "het",
         "een",
-
-        "af",
-        "op",
-        "om",
-        "te",
-        "en",
-        "met",
-        "van",
-        "in",
-        "door",
-        "over",
         ]
     return element.word not in blacklist
 
@@ -269,8 +258,8 @@ def main():
     #Take the 10 most probable keywords from these titles
     #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
     keywords = filter(inNotBlacklist, keywords)
-
-    topTenKeywords = sorted(keywords, key=Guess.prob)[-14:]
+    sortedKeywords = sorted(keywords, key=Guess.prob)
+    #topTenKeywords = sorted(keywords, key=Guess.prob)[-14:]
     #Find the drop in probability in the keywords to find the best keywords?
     #TODO determine top ten based on usage in grouped entries instead of probability?
     # possibly favour used keywords by adding the probability of the group entries
@@ -280,15 +269,26 @@ def main():
     #Create a common word penalty: subtract the general frequency of a keyword
     # from the matched keyword (subtract general probability that it contained the word
     # in the first place)
-    entriesPerKeyword = determineEntriesPerKeyword(groupedEntries, topTenKeywords)
-    if "?" in entriesPerKeyword:
-        for ge in entriesPerKeyword["?"]:
-            print("Uncatagorized:", ge.entry["title"])
-        del entriesPerKeyword["?"]
-    googleChartDataFor(entriesPerKeyword)
+    entriesPerKeyword = determineEntriesPerKeyword(groupedEntries, sortedKeywords)
 
-    render({"perKeyword": entriesPerKeyword}, 'src/templates/index.html', 'www/index.html')
-    # shutil.copyfile('src/templates/foundation.min.css', 'www/foundation.min.css')
+    if "?" in entriesPerKeyword:
+        #for ge in entriesPerKeyword["?"]:
+        #    print("Uncatagorized:", ge.entry["title"])
+        del entriesPerKeyword["?"]
+    #Pick the best 14 keywords
+    pickedEntriesPerKeyword = {}
+    for candidate in reversed(sortedKeywords):
+        kw = candidate.word
+        if kw in entriesPerKeyword.keys():
+            pickedEntriesPerKeyword[kw] = entriesPerKeyword[kw]
+            if len(pickedEntriesPerKeyword) > 13:
+                break
+
+
+    googleChartDataFor(pickedEntriesPerKeyword)
+
+    render({"perKeyword": pickedEntriesPerKeyword}, 'src/templates/index.html', 'www/index.html')
+    db.removeOldestWhenOver(10000)
     db.close()
     endTime = datetime.datetime.now()
     print("End:", endTime)

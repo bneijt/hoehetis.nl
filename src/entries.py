@@ -58,6 +58,10 @@ class Db:
     def remove(self, ident):
         if ident in self.contents:
             del self.contents[ident]
+    def removeOldestWhenOver(self, maxLength):
+        while len(self.contents) > maxLength:
+            maxEntry = min(self.contents.values(), key=lambda x: x['published_parsed'])
+            del self.contents[entryId(maxEntry)]
 
     def find(self):
         return self.contents.values()
@@ -72,3 +76,4 @@ def updateDb(db):
             if entry.has_key(k):
                 del entry[k]
         db.addOrUpdate(entryId(entry), entry)
+
