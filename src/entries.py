@@ -70,7 +70,7 @@ def updateDb(db):
     entries = loadEntries()
     #TODO make whitelist instead
     dropKeys = ["summary", "tags", "summary_detail", "title_detail", "links", 'related']
-    print("Loaded %i new entries" % len(entries))
+    print("Downloaded %i new entries" % len(entries))
     for entry in entries:
         for k in dropKeys:
             if entry.has_key(k):

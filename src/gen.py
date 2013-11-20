@@ -162,8 +162,8 @@ def groupAllEntriesForThisMonth(entries, synonyms, keywords):
     return groupedEntries
 
 
-def determineEntriesPerKeyword(groupedEntries, keywords):
-    kws =  [kw.word for kw in keywords] + ["?"]
+def determineEntriesPerKeyword(groupedEntries, sortedKeywords):
+    kws =  [kw.word for kw in sortedKeywords] + ["?"]
     perKeyword = {}
     for kw in kws:
         perKeyword[kw] = []
@@ -238,6 +238,10 @@ def main():
     E.updateDb(db)
 
     entries = list(db.find())
+    db.removeOldestWhenOver(5000)
+    db.close()
+    del db
+
     print("Loaded %i entries" % len(entries))
     titles = getNormalizedTitles(entries)
 
@@ -247,34 +251,22 @@ def main():
 
 
     groupedEntries = groupAllEntriesForThisMonth(entries, synonyms, keywords)
+    del entries
     # for i in sorted(groupedEntries[0].keywords, key=Guess.prob):
     #     print("kw", i)
 
     for ge in groupedEntries:
         stripLessThenBestKeywords(ge)
 
-    #usedKeywords = collateKeywordsFromGroupedEntries(groupedEntries)
-
-    #Take the 10 most probable keywords from these titles
-    #topTenKeywords = orderAllKeywordsForGroupedEntries(groupedEntries)[:10]
     keywords = filter(inNotBlacklist, keywords)
-    sortedKeywords = sorted(keywords, key=Guess.prob)
-    #topTenKeywords = sorted(keywords, key=Guess.prob)[-14:]
-    #Find the drop in probability in the keywords to find the best keywords?
-    #TODO determine top ten based on usage in grouped entries instead of probability?
-    # possibly favour used keywords by adding the probability of the group entries
-    # to the keyword entries??
 
-    # setKeywordBySelectingFrom(groupedEntries, topTenKeywords, Guess("?", 0, 1))
-    #Create a common word penalty: subtract the general frequency of a keyword
-    # from the matched keyword (subtract general probability that it contained the word
-    # in the first place)
+    sortedKeywords = sorted(keywords, key=Guess.prob)
+
     entriesPerKeyword = determineEntriesPerKeyword(groupedEntries, sortedKeywords)
 
     if "?" in entriesPerKeyword:
-        #for ge in entriesPerKeyword["?"]:
-        #    print("Uncatagorized:", ge.entry["title"])
         del entriesPerKeyword["?"]
+
     #Pick the best 14 keywords
     pickedEntriesPerKeyword = {}
     for candidate in reversed(sortedKeywords):
@@ -286,14 +278,11 @@ def main():
 
 
     googleChartDataFor(pickedEntriesPerKeyword)
-    now = datetime.datetime.now()
+    endTime = datetime.datetime.now()
     render({
         "perKeyword": pickedEntriesPerKeyword,
-        'modified': now.strftime("%Y-%m-%dT%H:%M%z")
+        'modified': endTime.strftime("%Y-%m-%dT%H:%M%z")
         }, 'src/templates/index.html', 'www/index.html')
-    db.removeOldestWhenOver(5000)
-    db.close()
-    endTime = datetime.datetime.now()
     print("End:", endTime)
     print("Run:", endTime - startTime)
 
