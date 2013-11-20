@@ -8,6 +8,7 @@ import time
 import json
 import shutil
 import entries as E
+import collections
 
 def normalize(t):
     t = " %s " % t
@@ -58,20 +59,24 @@ class Guess(object):
     def prob(self):
         return self.freq / self.normalization
 
+def wordsOfTitles(titles):
+    blacklist = [
+        "'",
+
+        "de",
+        "het",
+        "een",
+        ]
+    for title in titles:
+        for word in title.split(" "):
+            if word not in blacklist:
+                yield word
 
 def determinekeywordsFrom(titles):
     #keywords are not to frequent, but still frequent words.
     #Each keyword is given a probability of it being a real keyword
-    keywords = {}
-    wordCount = 0
-    for title in titles:
-        words = title.split(" ")
-        wordCount += len(words)
-        for word in words:
-            if word in keywords:
-                keywords[word] += 1
-            else:
-                keywords[word] = 1
+    keywords = collections.Counter(wordsOfTitles(titles))
+    wordCount = sum(keywords.values())
     #Normalize keywords frequency count to create probability?
     return [Guess(word, count, wordCount) for word, count in keywords.items()]
 
@@ -219,23 +224,13 @@ def stripLessThenBestKeywords(groupedEntry):
     bestProb = sorted(groupedEntry.keywords, key=Guess.prob)[-1].prob()
     groupedEntry.keywords = [kw for kw in groupedEntry.keywords if kw.prob() >= bestProb]
 
-def inNotBlacklist(element):
-    blacklist = [
-        "'",
-
-        "de",
-        "het",
-        "een",
-        ]
-    return element.word not in blacklist
-
 def main():
     startTime = datetime.datetime.now()
     print("Start (of zoals de Russen zeggen 'начало'):", startTime)
     db = E.Db()
     db.open()
 
-    E.updateDb(db)
+    #E.updateDb(db)
 
     entries = list(db.find())
     db.removeOldestWhenOver(5000)
@@ -258,7 +253,6 @@ def main():
     for ge in groupedEntries:
         stripLessThenBestKeywords(ge)
 
-    keywords = filter(inNotBlacklist, keywords)
 
     sortedKeywords = sorted(keywords, key=Guess.prob)
 
