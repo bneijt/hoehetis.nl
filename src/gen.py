@@ -162,8 +162,8 @@ def groupAllEntriesForThisMonth(entries, synonyms, keywords):
     return groupedEntries
 
 
-def determineEntriesPerKeyword(groupedEntries, sortedKeywords):
-    kws =  [kw.word for kw in sortedKeywords] + ["?"]
+def determineEntriesPerKeyword(groupedEntries, keywords):
+    kws =  [kw.word for kw in keywords] + ["?"]
     perKeyword = {}
     for kw in kws:
         perKeyword[kw] = []
@@ -183,7 +183,7 @@ def determineEntriesPerKeyword(groupedEntries, sortedKeywords):
     return perKeyword
 
 def googleChartDataFor(entriesPerKeyword):
-    kws =  sorted(entriesPerKeyword.keys())
+    kws =  sorted(entriesPerKeyword.keys(), key=lambda s: s.lower())
     perDate = {}
     for col, kw in enumerate(kws):
         for ge in entriesPerKeyword[kw]:
@@ -299,4 +299,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
