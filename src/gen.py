@@ -68,9 +68,7 @@ def wordsOfTitles(titles):
         "een",
         ]
     for title in titles:
-        for word in title.split(" "):
-            if word not in blacklist:
-                yield word
+        yield from [word for word in title.split(" ") if word not in blacklist]
 
 def determinekeywordsFrom(titles):
     #keywords are not to frequent, but still frequent words.
