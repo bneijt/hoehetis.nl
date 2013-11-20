@@ -226,7 +226,7 @@ def main():
     db = E.Db()
     db.open()
 
-    #E.updateDb(db)
+    E.updateDb(db)
 
     entries = list(db.find())
     db.removeOldestWhenOver(5000)
