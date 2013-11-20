@@ -4,3 +4,4 @@
 /db.pkl
 *.pyc
 /run.log
+/profile.log
