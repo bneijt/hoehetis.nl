@@ -42,9 +42,6 @@ class Guess(object):
     def __str__(self):
         return "Guess: \"%s\" (%i/%i)" % (self.word, self.freq, self.normalization)
 
-    def sameWordAs(self, other):
-        return self.word == other.word
-
     def add(self, other):
         if other.freq == 0:
             return
@@ -79,6 +76,7 @@ def determinekeywordsFrom(titles):
     return [Guess(word, count, wordCount) for word, count in keywords.items()]
 
 def selectWordWithOffsetFromIn(word, offset, titles):
+    """Select the word with offset to word in every title"""
     def sel(title):
         words = title.split(" ")
         if word not in words:
@@ -88,7 +86,7 @@ def selectWordWithOffsetFromIn(word, offset, titles):
             return words[idx]
         return None
 
-    containing = [sel(title) for title in titles]
+    containing = [sel(title) for title in titles if word in title]
     while None in containing:
         containing.remove(None)
     return containing
@@ -138,7 +136,7 @@ def titleMatchesKeyword(title, keywordGuess):
     # chance of being a keyword
     total = Guess(keywordGuess.word, 0, 1)
     for w in title:
-        for sameWord in filter(lambda x: x.sameWordAs(keywordGuess), w):
+        for sameWord in filter(lambda x: x.word == keywordGuess.word, w):
             total.add(sameWord)
     return total
 
