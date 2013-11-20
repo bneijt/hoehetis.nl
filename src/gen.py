@@ -286,9 +286,12 @@ def main():
 
 
     googleChartDataFor(pickedEntriesPerKeyword)
-
-    render({"perKeyword": pickedEntriesPerKeyword}, 'src/templates/index.html', 'www/index.html')
-    db.removeOldestWhenOver(10000)
+    now = datetime.datetime.now()
+    render({
+        "perKeyword": pickedEntriesPerKeyword,
+        'modified': now.strftime("%Y-%m-%dT%H:%M%z")
+        }, 'src/templates/index.html', 'www/index.html')
+    db.removeOldestWhenOver(5000)
     db.close()
     endTime = datetime.datetime.now()
     print("End:", endTime)
