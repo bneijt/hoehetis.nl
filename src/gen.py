@@ -56,14 +56,99 @@ class Guess(object):
     def prob(self):
         return self.freq / self.normalization
 
-def wordsOfTitles(titles):
-    blacklist = [
-        "'",
+blacklist = """'
+de
+het
+een
+aan
+achter
+ad
+af
+behalve
+behoudens
+boven
+beneden
+benevens
+benoorden
+bij
+binnen
+blijkens
+buiten
+circa
+conform
+contra
+cum
+dankzij
+door
+gedurende
+gezien
+hangende
+in
+ingevolge
+inzake
+jegens
+krachtens
+langs
+luidens
+met
+middels
+midden
+mits
+na
+naar
+naast
+nabij
+namens
+nevens
+niettegenstaande
+nopens
+om
+omstreeks
+omtrent
+ondanks
+onder
+ongeacht
+onverminderd
+op
+over
+overeenkomstig
+per
+plus
+post
+richting
+rond
+rondom
+sedert
+sinds
+spijts
+staande
+te
+tegen
+tegenover
+ten
+ter
+tijdens
+tot
+tussen
+uit
+uitgezonderd
+van
+vanaf
+vanuit
+vanwege
+versus
+via
+volgens
+voor
+voorbij
+wegens
+zijdens
+zonder""".split("\n")
 
-        "de",
-        "het",
-        "een",
-        ]
+blacklist = [b.strip() for b in blacklist]
+
+def wordsOfTitles(titles):
+    #Requires blacklist
     for title in titles:
         yield from [word for word in title.split(" ") if word not in blacklist]
 
