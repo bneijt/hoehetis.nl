@@ -314,7 +314,7 @@ def main():
     E.updateDb(db)
 
     entries = list(db.find())
-    db.removeOldestWhenOver(5000)
+    db.removeOldestWhenOver(2050)
     db.close()
     del db
 
