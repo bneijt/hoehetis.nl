@@ -4,12 +4,12 @@ import os
 import pickle
 
 nuFeeds = [
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Economie",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Internet",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Opmerkelijk",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Wetenschap",
-    "http://www.nu.nl/deeplink_rss2/index.jsp?r=Gezondheid"
+    "http://www.nu.nl/rss/Algemeen"
+    # "http://www.nu.nl/rss/Economie",
+    # "http://www.nu.nl/rss/Internet",
+    # "http://www.nu.nl/rss/Opmerkelijk",
+    # "http://www.nu.nl/rss/Wetenschap",
+    # "http://www.nu.nl/rss/Gezondheid"
     ]
 
 def download():
@@ -76,4 +76,3 @@ def updateDb(db):
             if entry.has_key(k):
                 del entry[k]
         db.addOrUpdate(entryId(entry), entry)
-
