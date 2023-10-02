@@ -5,3 +5,8 @@
 *.pyc
 /run.log
 /profile.log
+
+
+# Added by cargo
+
+/target

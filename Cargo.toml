@@ -1,0 +1,15 @@
+[package]
+name = "hoehetis"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+feed-rs = "1.3.0"
+html5ever = "0.26.0"
+reqwest = "0.11.20"
+serde = { version = "1.0.188", features = ["derive"] }
+soup = "0.5.1"
+surrealdb = "1.0.0"
+tokio = { version = "1.32.0", features = ["full"] }
