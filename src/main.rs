@@ -25,10 +25,10 @@ async fn main() {
 
     connection
         .execute(
-            "CREATE TABLE  IF NOT EXISTS news_items (
-                    guid VARCHAR  PRIMARY KEY,
-                    title VARCHAR,
-                    description VARCHAR
+            "create table  if not exists news_items(
+                    guid varchar primary key,
+                    title varchar,
+                    description varchar
                 )",
             params![],
         )
@@ -48,7 +48,7 @@ async fn main() {
         };
         connection
             .execute(
-                "INSERT OR IGNORE INTO news_items VALUES (?,?,?)",
+                "insert or ignore into news_items values (?,?,?)",
                 params![rss_item.guid, rss_item.title, rss_item.description],
             )
             .expect("Failed to insert item");
