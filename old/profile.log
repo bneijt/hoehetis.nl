@@ -1,0 +1,420 @@
+Start (of zoals de Russen zeggen 'начало'): 2013-11-20 21:29:17.597102
+Loaded 161 entries
+End: 2013-11-20 21:29:26.056390
+Run: 0:00:08.459288
+         6306369 function calls (6305292 primitive calls) in 8.500 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    8.500    8.500 /home/bram/program/hoehetis.nl/src/gen.py:223(main)
+        1    0.196    0.196    8.021    8.021 /home/bram/program/hoehetis.nl/src/gen.py:151(groupAllEntriesForThisMonth)
+   112378    3.883    0.000    7.799    0.000 /home/bram/program/hoehetis.nl/src/gen.py:133(titleMatchesKeyword)
+  5560268    3.175    0.000    3.175    0.000 /home/bram/program/hoehetis.nl/src/gen.py:139(<lambda>)
+   121042    0.686    0.000    0.773    0.000 /home/bram/program/hoehetis.nl/src/gen.py:33(__init__)
+        1    0.004    0.004    0.364    0.364 /home/bram/program/hoehetis.nl/src/gen.py:119(determineSynonymsFor)
+     1022    0.017    0.000    0.358    0.000 /home/bram/program/hoehetis.nl/src/gen.py:99(determineSynoymsForWord)
+     1722    0.017    0.000    0.247    0.000 /home/bram/program/hoehetis.nl/src/gen.py:78(selectWordWithOffsetFromIn)
+     1722    0.121    0.000    0.220    0.000 /home/bram/program/hoehetis.nl/src/gen.py:89(<listcomp>)
+    18791    0.048    0.000    0.099    0.000 /home/bram/program/hoehetis.nl/src/gen.py:80(sel)
+     1022    0.021    0.000    0.093    0.000 /home/bram/program/hoehetis.nl/src/gen.py:116(<listcomp>)
+   365957    0.089    0.000    0.090    0.000 {built-in method isinstance}
+        1    0.000    0.000    0.041    0.041 /home/bram/program/hoehetis.nl/src/gen.py:203(render)
+    19183    0.040    0.000    0.040    0.000 {method 'split' of 'str' objects}
+        1    0.000    0.000    0.037    0.037 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:881(__new__)
+        1    0.000    0.000    0.037    0.037 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:835(from_string)
+        1    0.000    0.000    0.036    0.036 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:514(compile)
+     7770    0.029    0.000    0.029    0.000 /home/bram/program/hoehetis.nl/src/gen.py:45(add)
+      161    0.003    0.000    0.027    0.000 /home/bram/program/hoehetis.nl/src/gen.py:218(stripLessThenBestKeywords)
+        1    0.000    0.000    0.023    0.023 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:457(_parse)
+    23425    0.015    0.000    0.015    0.000 /home/bram/program/hoehetis.nl/src/gen.py:56(prob)
+     7966    0.014    0.000    0.014    0.000 {method 'count' of 'list' objects}
+      169    0.008    0.000    0.013    0.000 {built-in method sorted}
+      161    0.009    0.000    0.013    0.000 {method 'sort' of 'list' objects}
+        1    0.000    0.000    0.013    0.013 /home/bram/program/hoehetis.nl/src/gen.py:209(getNormalizedTitles)
+      161    0.000    0.000    0.013    0.000 /home/bram/program/hoehetis.nl/src/gen.py:20(normalizeEntry)
+        1    0.012    0.012    0.013    0.013 /home/bram/program/hoehetis.nl/src/gen.py:166(determineEntriesPerKeyword)
+      161    0.001    0.000    0.012    0.000 /home/bram/program/hoehetis.nl/src/gen.py:13(normalize)
+        1    0.000    0.000    0.012    0.012 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:891(parse)
+    223/2    0.001    0.000    0.012    0.006 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/visitor.py:34(visit)
+      493    0.001    0.000    0.011    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:268(_compile)
+      161    0.007    0.000    0.011    0.000 /home/bram/program/hoehetis.nl/src/gen.py:221(<listcomp>)
+      3/1    0.000    0.000    0.011    0.011 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:843(subparse)
+      483    0.001    0.000    0.011    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:163(sub)
+        1    0.000    0.000    0.011    0.011 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:29(__init__)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:486(_tokenize)
+    10029    0.010    0.000    0.010    0.000 {method 'remove' of 'list' objects}
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/src/gen.py:70(determinekeywordsFrom)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:498(_generate)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:55(generate)
+       12    0.000    0.000    0.010    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:489(compile)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:757(visit_Template)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:381(get_lexer)
+        1    0.000    0.000    0.010    0.010 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:410(__init__)
+       10    0.000    0.000    0.010    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:412(<lambda>)
+       10    0.000    0.000    0.010    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:212(compile)
+    10342    0.009    0.000    0.009    0.000 {method 'index' of 'list' objects}
+      495    0.006    0.000    0.008    0.000 {method 'sub' of '_sre.SRE_Pattern' objects}
+      2/1    0.000    0.000    0.008    0.008 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:113(parse_statement)
+      2/1    0.000    0.000    0.008    0.008 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:176(parse_for)
+   130/65    0.000    0.000    0.008    0.000 {built-in method next}
+      162    0.001    0.000    0.008    0.000 /home/bram/program/hoehetis.nl/src/gen.py:25(publishedThisMonth)
+       65    0.000    0.000    0.008    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:342(__next__)
+       65    0.001    0.000    0.007    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:548(wrap)
+      208    0.001    0.000    0.007    0.000 /home/bram/program/hoehetis.nl/src/gen.py:23(publishedDateOf)
+      2/1    0.000    0.000    0.007    0.007 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:141(parse_statements)
+       12    0.000    0.000    0.006    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:725(parse)
+    10022    0.006    0.000    0.006    0.000 {method 'append' of 'list' objects}
+    35/12    0.001    0.000    0.006    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:341(_parse_sub)
+      682    0.002    0.000    0.005    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:164(iter_child_nodes)
+        9    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:578(parse_tuple)
+    50/13    0.002    0.000    0.005    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:419(_parse)
+        1    0.001    0.001    0.005    0.005 /home/bram/program/hoehetis.nl/src/gen.py:76(<listcomp>)
+        1    0.000    0.000    0.005    0.005 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/collections/__init__.py:449(__init__)
+        1    0.000    0.000    0.005    0.005 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/collections/__init__.py:512(update)
+        1    0.000    0.000    0.005    0.005 /home/bram/program/hoehetis.nl/src/gen.py:186(googleChartDataFor)
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:380(parse_expression)
+      3/1    0.000    0.000    0.005    0.005 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:477(blockvisit)
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:402(parse_or)
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:411(parse_and)
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:420(parse_not)
+      2/1    0.000    0.000    0.005    0.005 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1036(visit_For)
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:426(parse_compare)
+       79    0.001    0.000    0.005    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:593(tokeniter)
+        1    0.002    0.002    0.005    0.005 {built-in method _count_elements}
+     10/7    0.000    0.000    0.005    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:448(parse_add)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:458(parse_sub)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:468(parse_concat)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:478(parse_mul)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:488(parse_div)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:498(parse_floordiv)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:508(parse_mod)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:518(parse_pow)
+     10/7    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:528(parse_unary)
+      8/6    0.000    0.000    0.004    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:389(parse_condexpr)
+   124/17    0.001    0.000    0.004    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/visitor.py:41(generic_visit)
+       12    0.000    0.000    0.004    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:474(_code)
+13622/13581    0.004    0.000    0.004    0.000 {built-in method len}
+       20    0.000    0.000    0.004    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:360(expect)
+      208    0.003    0.000    0.003    0.000 {built-in method mktime}
+   209/19    0.001    0.000    0.003    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:184(find_all)
+     10/7    0.000    0.000    0.003    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:660(parse_postfix)
+        5    0.000    0.000    0.003    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:688(parse_subscript)
+      256    0.003    0.000    0.003    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
+      130    0.000    0.000    0.003    0.000 {method 'join' of 'str' objects}
+        1    0.000    0.000    0.003    0.003 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:954(render)
+       78    0.001    0.000    0.003    0.000 <template>:5(root)
+        1    0.000    0.000    0.002    0.002 /home/bram/program/hoehetis.nl/src/entries.py:47(close)
+      208    0.002    0.000    0.002    0.000 {built-in method fromtimestamp}
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:1556(_find_and_load)
+    83/12    0.001    0.000    0.002    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:33(_compile)
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:1506(_find_and_load_unlocked)
+        5    0.000    0.000    0.002    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:88(find_undeclared)
+        1    0.000    0.000    0.002    0.002 /home/bram/program/hoehetis.nl/src/entries.py:40(open)
+        1    0.000    0.000    0.002    0.002 /usr/lib/python3.3/json/__init__.py:123(dump)
+     1253    0.002    0.000    0.002    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:148(iter_fields)
+        1    0.002    0.002    0.002    0.002 {built-in method dump}
+        1    0.002    0.002    0.002    0.002 {built-in method load}
+      941    0.001    0.000    0.002    0.000 /home/bram/program/hoehetis.nl/src/gen.py:59(wordsOfTitles)
+        1    0.000    0.000    0.002    0.002 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/optimizer.py:23(optimize)
+     10/2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:581(_check_name_wrapper)
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:1018(load_module)
+     39/1    0.000    0.000    0.002    0.002 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/visitor.py:58(generic_visit)
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:996(load_module)
+        2    0.000    0.000    0.002    0.001 <frozen importlib._bootstrap>:536(module_for_loader_wrapper)
+       12    0.000    0.000    0.002    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:365(_compile_info)
+      3/2    0.000    0.000    0.002    0.001 {built-in method exec}
+       16    0.000    0.000    0.001    0.000 {method 'decode' of 'bytes' objects}
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/__init__.py:69(search_function)
+        2    0.000    0.000    0.001    0.001 <frozen importlib._bootstrap>:849(_load_module)
+      304    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:185(__next)
+        1    0.000    0.000    0.001    0.001 {built-in method __import__}
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:577(pull_dependencies)
+      221    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:210(get)
+      322    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:304(_subx)
+       48    0.001    0.000    0.001    0.000 {method 'strftime' of 'datetime.date' objects}
+     1227    0.001    0.000    0.001    0.000 {built-in method getattr}
+     1725    0.001    0.000    0.001    0.000 {method 'extend' of 'list' objects}
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:506(_compile)
+        1    0.001    0.001    0.001    0.001 {built-in method compile}
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:908(from_code)
+       12    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:544(parse_primary)
+       61    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/markupsafe/_native.py:15(escape)
+        3    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:192(inspect)
+        1    0.000    0.000    0.001    0.001 <template>:1(<module>)
+      138    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:697(write)
+        5    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1212(visit_Output)
+      223    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/visitor.py:26(get_visitor)
+        2    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:604(<lambda>)
+      161    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/src/gen.py:145(__init__)
+   100/32    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:142(getwidth)
+      138    0.000    0.000    0.001    0.000 /usr/lib/python3.3/json/encoder.py:397(_iterencode)
+      9/6    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/optimizer.py:54(fold)
+      323    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:132(__getitem__)
+       39    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:127(__init__)
+      138    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:351(write)
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:177(find)
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:219(set_environment)
+  274/138    0.001    0.000    0.001    0.000 /usr/lib/python3.3/json/encoder.py:268(_iterencode_list)
+       41    0.000    0.000    0.001    0.000 {method 'extend' of 'collections.deque' objects}
+       78    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:310(filter)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:934(get_code)
+        3    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:714(parse_subscribed)
+      322    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:287(_compile_repl)
+       10    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:673(parse_filter_expr)
+      161    0.001    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/src/gen.py:68(<listcomp>)
+        4    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:792(parse_filter)
+       78    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:847(expand_template)
+      164    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:204(match)
+       25    0.000    0.000    0.001    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:179(_compile_charset)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:305(_call_with_frames_removed)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:1470(_find_module)
+        1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/abc.py:175(__instancecheck__)
+        5    0.001    0.000    0.001    0.000 {built-in method open}
+      7/1    0.000    0.000    0.001    0.001 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/abc.py:191(__subclasscheck__)
+       92    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:240(test)
+       73    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:285(_escape)
+       29    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:507(writeline)
+       66    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:230(__new__)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:849(open)
+        6    0.000    0.000    0.000    0.000 {built-in method __build_class__}
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/filters.py:80(do_urlencode)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1304(find_module)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1277(_get_loader)
+       44    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:338(skip_if)
+     11/4    0.000    0.000    0.000    0.000 {built-in method issubclass}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:8(<module>)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:356(parse_assign_target)
+        4    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:237(visit_Filter)
+       75    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:492(write)
+      161    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/src/gen.py:172(<listcomp>)
+       61    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/markupsafe/__init__.py:68(__new__)
+       44    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:331(next_if)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:542(tokenize)
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/utils.py:279(unicode_urlencode)
+        5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1351(find_loader)
+       12    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:538(_normalize_newlines)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:728(__exit__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:296(__init__)
+        4    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1515(visit_Filter)
+      184    0.000    0.000    0.000    0.000 {built-in method setattr}
+       25    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:208(_optimize_charset)
+      314    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+      138    0.000    0.000    0.000    0.000 {built-in method utf_8_encode}
+        2    0.000    0.000    0.000    0.000 {method 'close' of '_io.BufferedWriter' objects}
+      133    0.000    0.000    0.000    0.000 {built-in method hasattr}
+        2    0.000    0.000    0.000    0.000 {built-in method loads}
+      128    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:140(append)
+      138    0.000    0.000    0.000    0.000 {method 'write' of '_io.BufferedWriter' objects}
+      147    0.000    0.000    0.000    0.000 {method 'group' of '_sre.SRE_Match' objects}
+      698    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/collections/__init__.py:463(__missing__)
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:180(__init__)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:549(as_const)
+       14    0.000    0.000    0.000    0.000 /usr/lib/python3.3/urllib/parse.py:708(quote_from_bytes)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1491(visit_Getitem)
+       10    0.000    0.000    0.000    0.000 {built-in method stat}
+       16    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/re.py:230(escape)
+       20    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:358(_simple)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/src/gen.py:167(<listcomp>)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:754(parse_template)
+      117    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:128(__len__)
+      129    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x8f8540}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:44(get_spontaneous_environment)
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:415(cache_from_source)
+       11    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:58(__iter__)
+       83    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:92(__init__)
+       94    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:392(getattr)
+      161    0.000    0.000    0.000    0.000 {method 'strip' of 'str' objects}
+        5    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:851(flush_data)
+       34    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:512(newline)
+      161    0.000    0.000    0.000    0.000 {method 'date' of 'datetime.datetime' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1030(get_data)
+       78    0.000    0.000    0.000    0.000 {method 'count' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:338(visit_For)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/__future__.py:48(<module>)
+        4    0.000    0.000    0.000    0.000 {built-in method print}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:602(push_scope)
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:796(is_package)
+        6    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:637(as_const)
+      186    0.000    0.000    0.000    0.000 {built-in method min}
+       22    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/_compat.py:28(<lambda>)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:194(set_ctx)
+      152    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       30    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:97(get_eval_context)
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:74(_path_join)
+       18    0.000    0.000    0.000    0.000 {method 'groupdict' of '_sre.SRE_Match' objects}
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:141(__init__)
+        4    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:234(isname)
+      108    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:375(getitem)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:657(as_const)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/filters.py:226(do_sort)
+        8    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:86(_path_split)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:189(compile_rules)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:238(__init__)
+       10    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1374(visit_Name)
+       66    0.000    0.000    0.000    0.000 {built-in method intern}
+        1    0.000    0.000    0.000    0.000 {built-in method today}
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:572(pull_locals)
+        2    0.000    0.000    0.000    0.000 {built-in method now}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:624(pop_scope)
+       19    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:259(visit_Name)
+        7    0.000    0.000    0.000    0.000 {built-in method repr}
+       20    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:308(__bool__)
+       15    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:74(opengroup)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:659(__init__)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:210(inner)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:804(_bytes_from_bytecode)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:266(_get_module_lock)
+       10    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:277(visit_Name)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:253(test_any)
+        1    0.000    0.000    0.000    0.000 {built-in method sum}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:677(read)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:995(new_context)
+       60    0.000    0.000    0.000    0.000 {built-in method max}
+      142    0.000    0.000    0.000    0.000 {method 'write' of '_io.StringIO' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/utils.py:336(get)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:108(_path_isfile)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:370(iter_extensions)
+       24    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:471(isstring)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/runtime.py:53(new_context)
+       11    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:81(__init__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:429(read)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1486(visit_Getattr)
+       30    0.000    0.000    0.000    0.000 {method 'encode' of 'str' objects}
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:26(__exit__)
+        4    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:519(signature)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1040(path_stats)
+        9    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/parser.py:98(is_tuple_end)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:98(_path_is_mode_type)
+       12    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:713(fix_flags)
+       78    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:201(find_shadowed)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/__init__.py:42(normalize_encoding)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:36(__init__)
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/filters.py:255(sort_func)
+       15    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:85(closegroup)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:478(preprocess)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/utils.py:402(__setitem__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/runtime.py:112(__init__)
+       12    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:69(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'splitlines' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/utils.py:380(__getitem__)
+       47    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:228(isident)
+       10    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:457(as_const)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:401(__init__)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:20(__enter__)
+       69    0.000    0.000    0.000    0.000 {method 'end' of '_sre.SRE_Match' objects}
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/src/gen.py:187(<lambda>)
+       14    0.000    0.000    0.000    0.000 {method 'rstrip' of 'bytes' objects}
+       14    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:354(as_const)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:201(acquire)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/genericpath.py:15(exists)
+        2    0.000    0.000    0.000    0.000 {method 'read' of '_io.FileIO' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:36(getregentry)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:226(release)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:181(__init__)
+       24    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:79(add)
+       37    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1593(_handle_fromlist)
+        5    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:255(__init__)
+       16    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:366(__init__)
+       26    0.000    0.000    0.000    0.000 {built-in method iter}
+       35    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:104(__init__)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.3/json/encoder.py:196(iterencode)
+        1    0.000    0.000    0.000    0.000 {method 'getvalue' of '_io.StringIO' objects}
+       20    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:136(__setitem__)
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:61(_r_long)
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:1380(visit_Const)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:931(_from_namespace)
+        6    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:761(literal)
+        3    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+        8    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:68(__contains__)
+       10    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:128(is_declared)
+        1    0.000    0.000    0.000    0.000 {method 'read' of '_io.BufferedReader' objects}
+       43    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'close' of '_io.BufferedReader' objects}
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1452(__enter__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:643(find_module)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:486(<listcomp>)
+        4    0.000    0.000    0.000    0.000 {method 'rsplit' of 'str' objects}
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:486(_verbose_message)
+       61    0.000    0.000    0.000    0.000 {built-in method ord}
+       22    0.000    0.000    0.000    0.000 {built-in method encode_basestring_ascii}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:154(new_module)
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1456(__exit__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:354(close)
+        8    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/__future__.py:77(__init__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:700(find_module)
+        3    0.000    0.000    0.000    0.000 {built-in method lookup}
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:16(__init__)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:425(temporary_identifier)
+        5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1260(_path_importer_cache)
+       41    0.000    0.000    0.000    0.000 {method 'popleft' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/src/entries.py:66(find)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/_weakrefset.py:52(_commit_removals)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:77(__new__)
+        6    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:455(outdent)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:90(_environment_sanity_check)
+        6    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:451(indent)
+       28    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        7    0.000    0.000    0.000    0.000 {method '__subclasses__' of 'type' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:208(<genexpr>)
+        4    0.000    0.000    0.000    0.000 {method 'partition' of 'str' objects}
+       19    0.000    0.000    0.000    0.000 {method 'discard' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/src/entries.py:61(removeOldestWhenOver)
+        6    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:853(<genexpr>)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1012(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method _fix_co_filename}
+        4    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.3/json/encoder.py:98(__init__)
+        7    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/collections/abc.py:129(__subclasshook__)
+        9    0.000    0.000    0.000    0.000 {built-in method id}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:217(__init__)
+        8    0.000    0.000    0.000    0.000 {built-in method release_lock}
+        1    0.000    0.000    0.000    0.000 {built-in method is_builtin}
+        4    0.000    0.000    0.000    0.000 {built-in method allocate_lock}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.3/json/encoder.py:251(_make_iterencode)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:233(__init__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/lexer.py:209(<listcomp>)
+        8    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1025(get_filename)
+        4    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:529(<genexpr>)
+       14    0.000    0.000    0.000    0.000 {method 'isalnum' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/__future__.py:76(_Feature)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:13(Codec)
+        4    0.000    0.000    0.000    0.000 {built-in method get_ident}
+        1    0.000    0.000    0.000    0.000 {built-in method utf_8_decode}
+        2    0.000    0.000    0.000    0.000 {built-in method is_frozen}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/nodes.py:420(can_assign)
+        5    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:326(__init__)
+       11    0.000    0.000    0.000    0.000 {built-in method callable}
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:274(__init__)
+        5    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:38(_relax_case)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:280(cb)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/runtime.py:146(resolve)
+        8    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_compile.py:25(_identityfunction)
+        6    0.000    0.000    0.000    0.000 {built-in method acquire_lock}
+        7    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
+        4    0.000    0.000    0.000    0.000 {method 'update' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:78(load_extensions)
+        4    0.000    0.000    0.000    0.000 {method 'release' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:20(IncrementalEncoder)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/optimizer.py:32(__init__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/runtime.py:123(<genexpr>)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:843(make_globals)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:24(IncrementalDecoder)
+        1    0.000    0.000    0.000    0.000 {built-in method reduce}
+        2    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/_compat.py:17(<lambda>)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:28(StreamWriter)
+        3    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/codecs.py:725(__enter__)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/encodings/unicode_escape.py:31(StreamReader)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/environment.py:60(create_cache)
+        1    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/site-packages/jinja2/compiler.py:848(<genexpr>)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 /home/bram/program/hoehetis.nl/virtualenv/lib/python3.3/sre_parse.py:833(<lambda>)
+
+

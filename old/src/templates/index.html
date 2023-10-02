@@ -1,0 +1,87 @@
+<html lang="nl-NL">
+
+<head>
+<meta charset="utf-8" />
+<meta name="DC.modified" content="{{modified}}" />
+<title>Hoe het is: nu.nl in nummertjes</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/js/foundation.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/normalize.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.2/css/foundation.min.css" />
+<link rel="shortcut icon" type="image/png" href="/favicon.png">
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    function withChartData(jsonData) {
+      data = google.visualization.arrayToDataTable(jsonData);
+      var options = {
+        vAxis: {title:'Aantal'},
+        hAxis: {title:'Datum'}
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    }
+    $.getJSON("gchart.json", withChartData);
+  }
+</script>
+<style>
+
+</style>
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="large-11 columns">
+    <h1>hoe het is <br /><small>Nieuws in nummertjes</small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-11 columns">
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- hoehetis -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:15px"
+     data-ad-client="ca-pub-7399904085557293"
+     data-ad-slot="3570428057"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-11 columns">
+      <div id="chart" style="width: 1000px; height: 600;"></div>
+    </div>
+  </div>
+
+
+<div class="row">
+<div class="large-11 columns">
+<p>Alle berichten komen van <a href="http://nu.nl">nu.nl</a>. Klik op een term hier onder om de bijbehorende berichten te zien.</p>
+<div class="section-container auto" data-section>
+  {% for kw in perKeyword|sort %}
+  <section>
+    <p class="title" data-section-title><a href="#{{kw|urlencode}}">{{kw|escape}}</a></p>
+    <div class="content" data-section-content>
+      <p>
+      <ul class="inline-list">
+      {% for ge in perKeyword[kw] %}
+        <li><a href="{{ge.entry['link']}}">{{ge.entry["title"]|escape}}</a></li>
+      {% endfor %}
+      </ul>
+      </p>
+    </div>
+  </section>
+  {% endfor %}
+</div>
+</div>
+</div>
+<script>$(document).foundation()</script>
+</body></html>
