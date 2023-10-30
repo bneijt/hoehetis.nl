@@ -19,3 +19,14 @@ data "google_client_config" "this" {}
 #     }
 #   }
 # }
+
+resource "google_bigquery_dataset" "default" {
+  dataset_id                  = "base"
+  location                    = "EU"
+}
+
+
+resource "google_bigquery_table" "news" {
+  dataset_id = google_bigquery_dataset.default.dataset_id
+  table_id   = "news"
+}
