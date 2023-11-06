@@ -1,9 +1,9 @@
 use async_openai;
 use async_openai::types::{
-    ChatCompletionRequestMessageArgs, CreateChatCompletionRequestArgs, Role,
+    ChatCompletionRequestMessageArgs, CreateChatCompletionRequestArgs, CreateEmbeddingRequest, Role,
 };
 use duckdb::*;
-use feed_rs::parser;
+use feed_rs::{model, parser};
 use reqwest;
 use serde::{Deserialize, Serialize};
 use soup::Soup;
@@ -32,16 +32,6 @@ struct Emotions {
     disgust: f32,
 }
 
-#[canyon_entity]
-pub struct League {
-    #[primary_key]
-    pub id: i32,
-    pub ext_id: i64,
-    pub slug: String,
-    pub name: String,
-    pub region: String,
-    pub image_url: String,
-}
 
 async fn update_items(connection: &Connection) -> () {
     // Step 1: Download the RSS feed
@@ -76,8 +66,17 @@ async fn update_items(connection: &Connection) -> () {
 
 /// Load the given guid content into emotions from chat_gpt
 async fn load_emotions(connection: &Connection, guid: &str) -> () {
-    let mut stmt = connection.prepare("select description from news_items where guid = ?").unwrap();
-    let news_item: String = stmt.query(params![guid]).unwrap().next().unwrap().unwrap().get(0).unwrap();
+    let mut stmt = connection
+        .prepare("select description from news_items where guid = ?")
+        .unwrap();
+    let news_item: String = stmt
+        .query(params![guid])
+        .unwrap()
+        .next()
+        .unwrap()
+        .unwrap()
+        .get(0)
+        .unwrap();
     let client = async_openai::Client::new();
 
     let request = CreateChatCompletionRequestArgs::default()
@@ -124,6 +123,19 @@ async fn load_emotions(connection: &Connection, guid: &str) -> () {
     ()
 }
 
+async fn embed(body: &str) -> Vec<f32> {
+    let client = async_openai::Client::new();
+
+    let request = CreateEmbeddingRequest {
+        model: "text-embedding-ada-002".to_string(),
+        input: body.into(),
+        user: Some(String::from("hoehetis"))
+    };
+
+    let response = client.embeddings().create(request).await.unwrap();
+    response.data.first().unwrap().embedding.clone()
+}
+
 #[tokio::main]
 async fn main() {
     // Open and initialize database
@@ -133,12 +145,15 @@ async fn main() {
     update_items(&connection).await;
 
     // Fetch guids that have not run through chatgpt yet
-    let mut stmt = connection.prepare("select guid from news_items anti join chat_responses using (guid)").unwrap();
-    let missing_chats_iter = stmt.query_map([], |row| {
-        let v:String = row.get(0).unwrap();
-        Ok(v)
-    }).unwrap();
-
+    let mut stmt = connection
+        .prepare("select guid from news_items anti join chat_responses using (guid)")
+        .unwrap();
+    let missing_chats_iter = stmt
+        .query_map([], |row| {
+            let v: String = row.get(0).unwrap();
+            Ok(v)
+        })
+        .unwrap();
 
     for guid_result in missing_chats_iter {
         let guid = guid_result.unwrap();
