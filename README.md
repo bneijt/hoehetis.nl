@@ -59,3 +59,10 @@ Generate embedding of the 5 terms if not exists
 
 For each document on the date, determine the best term as the term count
 
+
+
+    Geef de best passende, enkele, emoticon voor het volgende bericht: ...
+
+
+OPENAI_API_KEY
+OPENAI_API_BASE

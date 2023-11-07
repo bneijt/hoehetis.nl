@@ -21,22 +21,22 @@ pub async fn create_tables(connection: &duckdb::Connection) -> () {
             params![],
         )
         .expect("Failed to create chat_responses table");
-    connection
-        .execute(
-            "create table  if not exists emotions(
-                    guid varchar primary key,
-                    anger float,
-                    anticipation float,
-                    joy float,
-                    trust float,
-                    fear float,
-                    surprise float,
-                    sadness float,
-                    disgust float
-                )",
-            params![],
-        )
-        .expect("Failed to create emotions table");
+    // connection
+    //     .execute(
+    //         "create table  if not exists emotions(
+    //                 guid varchar primary key,
+    //                 anger float,
+    //                 anticipation float,
+    //                 joy float,
+    //                 trust float,
+    //                 fear float,
+    //                 surprise float,
+    //                 sadness float,
+    //                 disgust float
+    //             )",
+    //         params![],
+    //     )
+    //     .expect("Failed to create emotions table");
 
     ()
 }
