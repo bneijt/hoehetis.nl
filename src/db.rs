@@ -6,6 +6,7 @@ pub async fn create_tables(connection: &duckdb::Connection) -> () {
             "create table  if not exists news_items(
                 guid varchar primary key,
                 published_date date,
+                published_timestamp timestamp,
                 title varchar,
                 description varchar
             )",

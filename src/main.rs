@@ -41,6 +41,7 @@ struct NewsEmoticon {
     #[serde(skip_serializing)]
     published_date: String,
 
+    title: String,
     emoticon: String,
 }
 
@@ -63,10 +64,13 @@ async fn update_items(connection: &Connection) -> () {
         .text();
         connection
             .execute(
-                "insert or ignore into news_items values (?,?,?,?)",
+                "insert or ignore into news_items(
+                    guid,published_date,published_timestamp,title,description
+                ) values (?,?,?,?,?)",
                 params![
                     guid,
                     item.published.unwrap().format("%Y-%m-%d").to_string(),
+                    item.published.unwrap().format("%s").to_string(),
                     title,
                     description
                 ],
@@ -87,7 +91,7 @@ async fn load_emoticon(connection: &Connection, guid: &str) -> () {
         .unwrap()
         .get(0)
         .unwrap();
-    
+
     let client = async_openai::Client::new();
 
     let request = CreateChatCompletionRequestArgs::default()
@@ -96,7 +100,7 @@ async fn load_emoticon(connection: &Connection, guid: &str) -> () {
         .messages([
             ChatCompletionRequestMessageArgs::default()
                 .role(Role::System)
-                .content("Geef de best passende, enkele, emoticon voor ontvangen bericht")
+                .content("Geef de best passende emoticon voor ontvangen bericht en antwoord altijd met slechts 1 emoticon.")
                 .build()
                 .unwrap(),
             ChatCompletionRequestMessageArgs::default()
@@ -147,7 +151,7 @@ async fn main() {
     // Fetch all the emotions from the database and put them in a json file
     let mut stmt = connection
         .prepare(
-            "select guid, strftime(published_date, '%x'), response_content from news_items inner join chat_responses using (guid)",
+            "select guid, strftime(published_date, '%x'), title, response_content from news_items inner join chat_responses using (guid) order by published_timestamp desc",
         )
         .unwrap();
 
@@ -156,7 +160,8 @@ async fn main() {
             Ok(NewsEmoticon {
                 guid: row.get(0).unwrap(),
                 published_date: row.get(1).unwrap(),
-                emoticon: row.get(2).unwrap(),
+                title: row.get(2).unwrap(),
+                emoticon: row.get(3).unwrap(),
             })
         })
         .unwrap();

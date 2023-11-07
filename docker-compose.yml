@@ -1,16 +1,8 @@
 version: '3'
 
 services:
-  surrealdb:
-    image: surrealdb/surrealdb
-    container_name: surrealdb
-    user: "1000:1000"
-    ports:
-      - "5000:5000"
-      - "8000:8000"
+  hoehetis:
+    build: .
     volumes:
-      - ./surrealdb_data:/surrealdb_data
-    command: start file:/surrealdb_data
-
-volumes:
-  surrealdb_data:
+      - ./data:/app/data
+    command: /app/
