@@ -75,79 +75,6 @@ async fn update_items(connection: &Connection) -> () {
     }
 }
 
-/// Load the given guid content into emotions from chat_gpt
-async fn load_emotions(connection: &Connection, guid: &str) -> () {
-    let mut stmt = connection
-        .prepare("select description from news_items where guid = ?")
-        .unwrap();
-    let news_item: String = stmt
-        .query(params![guid])
-        .unwrap()
-        .next()
-        .unwrap()
-        .unwrap()
-        .get(0)
-        .unwrap();
-    dbg!("news_item: {}", news_item.clone());
-    let client = async_openai::Client::new();
-
-    let request = CreateChatCompletionRequestArgs::default()
-        .max_tokens(512u16)
-        .model("gpt-3.5-turbo")
-        .messages([
-            ChatCompletionRequestMessageArgs::default()
-                .role(Role::System)
-                .content("You are a JSON API giving out 0 to 1 scores with three decimals on eight emotional attributes: anger, anticipation, joy, trust, fear, surprise, sadness and disgust. You should give higher scores if the emotion better fits the contents and only respond with JSON containing those attributes.")
-                .build()
-                .unwrap(),
-            ChatCompletionRequestMessageArgs::default()
-                .role(Role::User)
-                .content(news_item)
-                .build()
-                .unwrap(),
-        ])
-        .build()
-        .unwrap();
-    let response = client.chat().create(request).await.unwrap();
-    let choice = response.choices.first().unwrap().clone();
-    let json_response = choice.message.content.unwrap();
-    connection
-        .execute(
-            "insert or ignore into chat_responses(guid, response_content) values (?,?)",
-            params![guid, json_response],
-        )
-        .expect(format!("Failed to insert response for {guid}").as_str());
-    // Parse response message as json and insert into database
-    let emotions: Emotions = serde_json::from_str(&json_response).unwrap();
-    connection
-        .execute(
-            "insert or ignore into emotions(guid, anger, anticipation, joy, trust, fear, surprise, sadness, disgust) values (?,?,?,?,?,?,?,?,?)",
-            params![guid, emotions.anger,
-            emotions.anticipation,
-            emotions.joy,
-            emotions.trust,
-            emotions.fear,
-            emotions.surprise,
-            emotions.sadness,
-            emotions.disgust],
-        )
-        .expect(format!("Failed to insert response for {guid}").as_str());
-    ()
-}
-
-async fn embed(body: &str) -> Vec<f32> {
-    let client = async_openai::Client::new();
-
-    let request = CreateEmbeddingRequest {
-        model: "text-embedding-ada-002".to_string(),
-        input: body.into(),
-        user: Some(String::from("hoehetis")),
-    };
-
-    let response = client.embeddings().create(request).await.unwrap();
-    response.data.first().unwrap().embedding.clone()
-}
-
 async fn load_emoticon(connection: &Connection, guid: &str) -> () {
     let mut stmt = connection
         .prepare("select description from news_items where guid = ?")
@@ -160,7 +87,6 @@ async fn load_emoticon(connection: &Connection, guid: &str) -> () {
         .unwrap()
         .get(0)
         .unwrap();
-    dbg!("news_item: {}", news_item.clone());
     
     let client = async_openai::Client::new();
 
@@ -234,12 +160,6 @@ async fn main() {
             })
         })
         .unwrap();
-
-    // for emoticon in emoticons_iter {
-    //     let emoticon = emoticon.unwrap();
-    //     println!("Loading guid {}", emoticon);
-    //     load_emoticon(&connection, &emoticon).await;
-    // }
 
     // Create a HashMap to group items by published_date
     let mut grouped_items: HashMap<String, Vec<NewsEmoticon>> = HashMap::new();
