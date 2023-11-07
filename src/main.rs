@@ -70,7 +70,7 @@ async fn update_items(connection: &Connection) -> () {
                 params![
                     guid,
                     item.published.unwrap().format("%Y-%m-%d").to_string(),
-                    item.published.unwrap().format("%s").to_string(),
+                    item.published.unwrap().timestamp(),
                     title,
                     description
                 ],

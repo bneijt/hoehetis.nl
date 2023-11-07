@@ -3,10 +3,10 @@ use duckdb::*;
 pub async fn create_tables(connection: &duckdb::Connection) -> () {
     connection
         .execute(
-            "create table  if not exists news_items(
+            "create table if not exists news_items(
                 guid varchar primary key,
                 published_date date,
-                published_timestamp timestamp,
+                published_timestamp integer,
                 title varchar,
                 description varchar
             )",
