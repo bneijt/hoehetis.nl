@@ -1,7 +1,12 @@
-version: '3'
+version: '3.8'
 
 services:
   hoehetis:
     build: .
     volumes:
-      - ./data:/app/data
+      - type: volume
+        source: data
+        target: /app/data
+    command: /usr/bin/find /app
+volumes:
+  data:

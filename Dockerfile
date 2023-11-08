@@ -6,6 +6,8 @@ COPY . .
 RUN --mount=type=cache,target=/usr/local/cargo/registry cargo install --path .
 
 FROM debian:bookworm-slim
-RUN apt-get update & apt-get install -y extra-runtime-dependencies libssl3 ca-certificates & rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+VOLUME ["/app/data"]
+RUN apt-get update && apt-get install -y libssl3 ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local/cargo/bin/hoehetis /app/hoehetis
 CMD ["/app/hoehetis"]
