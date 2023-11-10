@@ -7,6 +7,13 @@ services:
       - type: volume
         source: data
         target: /app/data
-    command: /usr/bin/find /app
+      - type: volume
+        source: public
+        target: /app/public
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
 volumes:
   data:
+
+  public:
