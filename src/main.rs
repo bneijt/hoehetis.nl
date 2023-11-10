@@ -180,6 +180,7 @@ async fn main() {
             Err(e) => panic!("Error: {}", e),
         }
     }
+    std::fs::create_dir_all("public/data").expect("Failed to create public/data directory");
 
     // Write each group into a json file
     for (published_date, items) in grouped_items {
