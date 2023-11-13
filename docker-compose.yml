@@ -4,16 +4,12 @@ services:
   hoehetis:
     build: .
     volumes:
-      - type: volume
+      - type: bind
         source: data
         target: /app/data
-      - type: volume
+      - type: bind
         source: public
         target: /app/public
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
 
-volumes:
-  data:
-
-  public:
