@@ -1,89 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-+H4iLjY3JsKiF2V6N366in5IQHj2uEsGV7Pp/GRcm0fn76aPAk5V8xB6n8fQhhSonTqTXs/klFz4D0GIn6Br9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Hoe het is: nieuws in emoticons</title>
     <style>
-        html, body {
-            font-family: "Roboto", sans-serif;
-        }
-        a {
-            text-decoration: none;
-            color: #000;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            margin: 2px;
-        }
-        .header {
-            text-align: center;
-        }
+      html,
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3em;
+        margin: 2px;
+      }
+      .header {
+        text-align: center;
+      }
     </style>
-</head>
-<body>
-    <div class="header"><h1>Hoe het is</h1>
-    <p>Een emoticon voor elk bericht van de <a href="https://nos.nl">NOS</a>.</p></div>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Hoe het is</h1>
+      <p>
+        Een emoticon voor elk bericht van de <a href="https://nos.nl">NOS</a>.
+      </p>
+    </div>
     <div class="container" id="container"></div>
-    
+
     <script>
-        async function loadJson(date) {
-            try {
-                const response = await fetch(`data/${date}.json`);
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error(`Error fetching ${date}.json:`, error);
-                return null;
-            }
-        }
+      async function loadJson(date) {
+          try {
+              const response = await fetch(`data/${date}.json`);
+                if (!response.ok) {
+                    return null;
+                }
+              const data = await response.json();
+              return data;
+          } catch (error) {
+              console.error(`Error fetching ${date}.json:`, error);
+              return null;
+          }
+      }
 
-        function addItem(item) {
-            const container = document.getElementById('container');
-            const el = document.createElement('a');
-            el.classList.add('item');
-            el.setAttribute('href', item.guid);
-            el.setAttribute('title', item.title);
-            el.innerText = item.emoticon;
-            container.appendChild(el);
-        }
+      function addItem(item) {
+          const container = document.getElementById('container');
+          const el = document.createElement('a');
+          el.classList.add('item');
+          el.setAttribute('href', item.guid);
+          el.setAttribute('title', item.title);
+          el.innerText = item.emoticon;
+          container.appendChild(el);
+      }
 
-        async function loadData(date) {
-            const data = await loadJson(date);
-            if (data && Array.isArray(data)) {
-                data.forEach(item => addItem(item));
-            }
-            return data;
-        }
+      async function addDataFrom(date) {
+          const data = await loadJson(date.format('YYYY-MM-DD'));
+          if (data && Array.isArray(data)) {
+              data.forEach(item => addItem(item));
+          }
+          return data;
+      }
 
-        async function loadUntilFull(date) {
-            const loaded = await loadData(date);
-            if (loaded === null){
-                return;
-            }
-            const container = document.getElementById('container');
-            const totalHeight = container.scrollHeight;
-            const windowHeight = window.innerHeight;
-            
-            if (totalHeight < windowHeight) {
-                const yesterday = new Date(date);
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayDate = yesterday.toISOString().split('T')[0];
-                await loadUntilFull(yesterdayDate);
-            }
-        }
+      async function loadUntilFull(momentToLoad) {
+          const loaded = await addDataFrom(momentToLoad);
+          if (loaded === null){
+              return;
+          }
+          const container = document.getElementById('container');
+          const totalHeight = container.scrollHeight;
+          const windowHeight = window.innerHeight;
 
-        const today = new Date().toISOString().split('T')[0];
-        loadUntilFull(today);
+          if (totalHeight < windowHeight) {
+              await loadUntilFull(momentToLoad.subtract(1, 'day'));
+          }
+      }
+      async function main() {
+        const today = moment();
+        // Today might not yet exists, so it's ok if it fails
+        await addDataFrom(today);
+        await loadUntilFull(today.subtract(1, 'day'));
+      }
+      main();
     </script>
-</body>
+  </body>
 </html>
