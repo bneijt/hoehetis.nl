@@ -11,3 +11,4 @@ docker-compose up
 git add public
 git commit -am "Update $TODAY"
 git push
+echo Done
