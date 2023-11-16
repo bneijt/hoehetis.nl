@@ -111,16 +111,24 @@ async fn load_emoticon(connection: &Connection, guid: &str) -> () {
         ])
         .build()
         .unwrap();
-    let response = client.chat().create(request).await.unwrap();
-    let choice = response.choices.first().unwrap().clone();
-    let json_response = choice.message.content.unwrap();
-    connection
-        .execute(
-            "insert or ignore into chat_responses(guid, response_content) values (?,?)",
-            params![guid, json_response],
-        )
-        .expect(format!("Failed to insert response for {guid}").as_str());
-    ()
+    let response = client.chat().create(request).await;
+    match response {
+        Ok(response) => {
+            let choice = response.choices.first().unwrap().clone();
+            let json_response = choice.message.content.unwrap();
+            connection
+                .execute(
+                    "insert or ignore into chat_responses(guid, response_content) values (?,?)",
+                    params![guid, json_response],
+                )
+                .expect(format!("Failed to insert response for {guid}").as_str());
+            ()        }
+        Err(e) => {
+            println!("Error: {:?}", e);
+            ()
+        }
+    }
+
 }
 
 #[tokio::main]
