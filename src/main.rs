@@ -1,9 +1,9 @@
 use async_openai;
 use async_openai::types::{
-    ChatCompletionRequestMessageArgs, CreateChatCompletionRequestArgs, CreateEmbeddingRequest, Role,
+    ChatCompletionRequestMessageArgs, CreateChatCompletionRequestArgs, Role,
 };
 use duckdb::*;
-use feed_rs::{model, parser};
+use feed_rs::parser;
 use reqwest;
 use serde::{Deserialize, Serialize};
 use soup::Soup;
@@ -122,13 +122,13 @@ async fn load_emoticon(connection: &Connection, guid: &str) -> () {
                     params![guid, json_response],
                 )
                 .expect(format!("Failed to insert response for {guid}").as_str());
-            ()        }
+            ()
+        }
         Err(e) => {
             println!("Error: {:?}", e);
             ()
         }
     }
-
 }
 
 #[tokio::main]
